@@ -469,7 +469,7 @@ a{color:inherit;text-decoration:none}
 }
 .card{
   --w:clamp(104px,11.4vw,158px);
-  position:absolute;left:50%;bottom:20%;
+  position:absolute;left:50%;bottom:11%;
   width:var(--w);height:calc(var(--w) * 1.42);
   margin-left:calc(var(--w) / -2);
   border-radius:calc(var(--w) * .055);
@@ -563,7 +563,7 @@ a.card:hover,a.card:focus-visible{
   .fan{height:clamp(240px,42vh,320px)}
   /* a narrow screen can't take a wide fan — close the hand up */
   .card{--w:clamp(84px,25vw,116px);--step:.95deg;
-        transform-origin:50% 400%;bottom:24%}
+        transform-origin:50% 400%;bottom:0}
 }
 
 /* ============================================================
@@ -703,9 +703,8 @@ a.card:hover,a.card:focus-visible{
      the words right across the picture */
   text-align:left;max-width:60%;
   transform:rotate(-4deg);transform-origin:0 0;
-  /* no outline. Just enough shadow that white still reads against a bright
-     sky — take this line out if you want it perfectly clean. */
-  text-shadow:0 1px 3px rgba(20,18,12,.55);
+  /* flat white marker text: no glow or shadow */
+  text-shadow:none;
 }
 
 /* the caption, under its photograph where a magazine puts it */
@@ -1019,7 +1018,7 @@ const PEOPLE = [
         { img:'siddharth-rooftop.jpg', ar:0.75, after:2, fx:32, fy:45, w:88,
           alt:'Siddharth leaning on the parapet of the Verci rooftop, the Met Life tower and the Empire State behind him',
           note:'siddharth peeking down<br>from verci&rsquo;s rooftop',
-          nx:12, ny:26,            /* sitting in the sky above the left roofs */
+          nx:12, ny:32,            /* lowered so the writing meets the arrow tail */
           ax:15, ay:41,            /* the line leaves the writing here */
           tx:12, ty:57 },
         { img:'siddharth-metrograph.jpg', ar:0.9, after:8, fx:50, fy:42,
@@ -1557,7 +1556,7 @@ function viewIndex(){
           const href = open ? ` href="#/p/${p.slug}"` : '';
           const ini  = open ? esc((p.name||'?').trim()[0])
                      : p.named ? esc((p.name||'?').trim()[0]) : '';
-          return `<${tag} class="card${open ? '' : ' blank'}"${href}
+          return `<${tag} class="card${p.named ? '' : ' blank'}"${href}
              data-name="${esc((p.name||'').toLowerCase())}"
              data-open="${open ? 1 : 0}"
              ${open ? `title="${esc(p.name)}"` : 'aria-hidden="true"'}>
