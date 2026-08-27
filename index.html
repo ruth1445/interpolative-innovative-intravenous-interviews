@@ -417,9 +417,9 @@ a{color:inherit;text-decoration:none}
    ============================================================ */
 .hand-page{
   min-height:100svh;min-height:100vh;
-  padding:clamp(28px,6vh,72px) clamp(10px,3vw,36px) clamp(18px,3vh,34px);
+  padding:clamp(18px,3vh,36px) clamp(10px,3vw,36px);
   background:#FFFFFF;
-  display:flex;justify-content:center;align-items:center;
+  display:grid;place-items:center;
 }
 .hand-page .sheet{
   position:relative;display:block;width:min(1040px,100%);
@@ -522,7 +522,7 @@ a.personmark.named:focus-visible{
 .personmark[hidden]{display:none!important}
 
 @media(max-width:760px){
-  .hand-page{padding:22px 8px 18px}
+  .hand-page{padding:14px 8px}
   .hand-page .sheet{padding:24px 18px 22px}
   .index-grid{
     grid-template-columns:repeat(4,minmax(0,1fr));
