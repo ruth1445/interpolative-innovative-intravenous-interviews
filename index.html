@@ -2329,7 +2329,7 @@ function markHTML(p){
 
 function plateHTML(p){
   const wide = p.w ? ` style="width:${p.w}%"` : '';
-  return `<figure class="plate${p.wide ? ' wide' : ''}"${wide}>
+  return `<figure class="plate${p.wide ? ' wide' : ''}" data-img="${esc(p.img||'')}"${wide}>
     <span class="shot" style="padding-bottom:${(100/(p.ar||1.333)).toFixed(2)}%">
       <img src="${esc(p.img)}" alt="${esc(p.alt||'')}" loading="lazy"
            style="object-position:${p.fx ?? 50}% ${p.fy ?? 50}%">
@@ -2339,6 +2339,54 @@ function plateHTML(p){
     </span>
     ${p.cap ? `<span class="bub">${p.cap}</span>` : ''}
   </figure>`;
+}
+
+/* Centre Siddharth's photo plates against the separators the eye actually
+   sees: outer beige sheet edge ↔ column rule, rather than merely inside the
+   CSS column box. This keeps the visible left/right gaps equal at any width. */
+function alignSiddharthPlates(){
+  const press = app.querySelector('.press');
+  const sheet = press && press.querySelector('.sheet');
+  const cols  = press && press.querySelector('.cols');
+  if(!sheet || !cols) return;
+
+  const css = getComputedStyle(cols);
+  const count = Math.max(1, parseInt(css.columnCount,10) || 1);
+  const gap = parseFloat(css.columnGap) || 0;
+
+  const targets = [...cols.querySelectorAll('.plate[data-img]')].filter(el =>
+    /siddharth-(rooftop|metrograph)\.jpg$/i.test(el.dataset.img || '')
+  );
+
+  /* On the one-column mobile layout ordinary auto-centering is the right
+     visual rule, so remove any desktop translation. */
+  if(count < 2){
+    targets.forEach(el => { el.style.transform = ''; });
+    return;
+  }
+
+  const cr = cols.getBoundingClientRect();
+  const sr = sheet.getBoundingClientRect();
+  const colW = (cr.width - gap * (count - 1)) / count;
+
+  const ruleX = i => cr.left + i * colW + (i - .5) * gap;
+
+  targets.forEach(el => {
+    el.style.transform = '';
+    const pr = el.getBoundingClientRect();
+    const baseCenter = pr.left + pr.width / 2;
+
+    /* Find which newspaper column this plate occupies before shifting it. */
+    let col = Math.round((baseCenter - (cr.left + colW / 2)) / (colW + gap));
+    col = Math.max(0, Math.min(count - 1, col));
+
+    const leftBoundary  = col === 0 ? sr.left  : ruleX(col);
+    const rightBoundary = col === count - 1 ? sr.right : ruleX(col + 1);
+    const wantedCenter = (leftBoundary + rightBoundary) / 2;
+    const dx = wantedCenter - baseCenter;
+
+    el.style.transform = `translateX(${dx.toFixed(2)}px)`;
+  });
 }
 
 /* The press layout. Same blocks, different chrome: the writing goes into
@@ -2393,6 +2441,10 @@ function pressHTML(p, story){
   </article>`;
 }
 
+window.addEventListener('resize', () => {
+  if(CURRENT && CURRENT.press) requestAnimationFrame(alignSiddharthPlates);
+}, {passive:true});
+
 function renderStory(){
   const p = CURRENT;
   const story = BLOCKS;
@@ -2400,6 +2452,7 @@ function renderStory(){
   if(p && p.press){
     app.innerHTML = pressHTML(p, story);
     wireStory();
+    requestAnimationFrame(alignSiddharthPlates);
     return;
   }
 
