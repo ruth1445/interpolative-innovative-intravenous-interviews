@@ -414,13 +414,15 @@ a{color:inherit;text-decoration:none}
    landing sheet continuously, like labels passing through a print shop.
    ============================================================ */
 .hand-page{
+  width:100%;max-width:100vw;
   min-height:100svh;min-height:100vh;
   padding:clamp(18px,3vh,36px) clamp(10px,3vw,36px);
   background:#FFFFFF;
   display:grid;place-items:center;
+  overflow:hidden;
 }
 .hand-page .sheet{
-  position:relative;display:block;width:min(1040px,100%);
+  position:relative;display:block;width:min(1040px,100%);min-width:0;
   background:var(--paper);
   border:1px solid #16150F;
   padding:clamp(22px,3vw,44px) clamp(18px,3vw,42px) clamp(24px,3vw,40px);
@@ -461,6 +463,7 @@ a{color:inherit;text-decoration:none}
    pauses on hover/focus, so an interview can be opened without chasing it. */
 .conveyor{
   position:relative;
+  width:100%;min-width:0;
   overflow:hidden;
   margin:clamp(18px,3vh,30px) 0 clamp(8px,1.5vh,16px);
   padding:clamp(22px,3.2vh,34px) 0;
