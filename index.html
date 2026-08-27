@@ -1538,7 +1538,26 @@ function save(){
 function load(p){
   try{
     const raw = localStorage.getItem(keyFor(p));
-    if(raw) return JSON.parse(raw);
+    if(raw){
+      const saved = JSON.parse(raw);
+      /* Preserve local edits, but migrate the one Siddharth link added
+         after those edits may have been saved in this browser. */
+      if(p.slug === 'siddharth'){
+        const oldReach = 'you can reach out to him yourself!';
+        const linkedReach = 'you can <a href="https://x.com/itsiddharth_" target="_blank" rel="noopener noreferrer">reach</a> out to him yourself!';
+        let changed = false;
+        saved.forEach(b => {
+          if(typeof b.p === 'string' && b.p.includes(oldReach)){
+            b.p = b.p.replace(oldReach, linkedReach);
+            changed = true;
+          }
+        });
+        if(changed){
+          try{ localStorage.setItem(keyFor(p), JSON.stringify(saved)); }catch(e){}
+        }
+      }
+      return saved;
+    }
   }catch(e){}
   return JSON.parse(JSON.stringify(p.story || []));
 }
