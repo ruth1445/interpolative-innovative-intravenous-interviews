@@ -451,6 +451,52 @@ a{color:inherit;text-decoration:none}
 }
 .hand-page .aboutlink:hover{color:var(--press-red)}
 
+.hand-page .name-index{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:clamp(7px,1vw,11px);
+  margin-top:2px;
+}
+.hand-page .name-oval{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:28px;
+  padding:4px clamp(11px,1.25vw,16px) 5px;
+  border:1px solid #16150F;
+  border-radius:999px;
+  background:transparent;
+  color:#16150F;
+  text-decoration:none;
+  font-family:var(--press);
+  font-size:clamp(11px,1.05vw,13px);
+  font-weight:400;
+  line-height:1;
+  letter-spacing:.01em;
+  text-transform:lowercase;
+  white-space:nowrap;
+}
+.hand-page a.name-oval{
+  cursor:pointer;
+  transition:color .14s ease,border-color .14s ease;
+}
+.hand-page a.name-oval:hover,
+.hand-page a.name-oval:focus-visible{
+  color:var(--press-red);
+  border-color:var(--press-red);
+  outline:none;
+}
+.hand-page .name-oval.soon{cursor:default}
+@media(max-width:600px){
+  .hand-page .name-index{gap:7px}
+  .hand-page .name-oval{
+    min-height:26px;
+    padding:4px 10px 5px;
+    font-size:11px;
+  }
+}
+
 /* ============================================================
    THE PRESS LOOK
    A page off a 1950s magazine: aged stock, an engraved script line
@@ -945,6 +991,8 @@ const PEOPLE = [
     shape:"aster",      colour:3  },
   { slug:"louis-mendez", soon:true, named:true, name:"Louis Mendez",
     shape:"pom",        colour:10 },
+  { slug:"george-st-camera", soon:true, named:true, name:"George St. Camera",
+    shape:"anemone",    colour:11 },
   { slug:"samir-dorothy", named:true, name:"Samir and Dorothy",
     shape:"ranunculus", colour:9,
     press:{
@@ -1540,6 +1588,16 @@ function viewIndex(){
                placeholder="search for someone">
         <button class="aboutlink" type="button" id="aboutbtn">about this site</button>
       </div>
+
+      <nav class="name-index" aria-label="people">
+        <span class="name-oval soon" aria-disabled="true">ashley</span>
+        <span class="name-oval soon" aria-disabled="true">george st. camera</span>
+        <span class="name-oval soon" aria-disabled="true">larry</span>
+        <span class="name-oval soon" aria-disabled="true">louis mendez</span>
+        <a class="name-oval" href="#/p/samir-dorothy">samir &amp; dorothy</a>
+        <a class="name-oval" href="#/p/siddharth">siddharth</a>
+        <span class="name-oval soon" aria-disabled="true">tejas</span>
+      </nav>
     </div>
   </div>
 
