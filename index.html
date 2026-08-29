@@ -379,15 +379,6 @@ a{color:inherit;text-decoration:none}
 .article.editing .fig{outline:1px dashed #C6B392;outline-offset:6px}
 
 /* ---- writing in the page ---- */
-.writebtn{
-  float:right;background:none;border:none;cursor:pointer;
-  font-family:var(--ui);font-stretch:condensed;font-size:16px;
-  color:#8A7A62;border-bottom:1px solid transparent;padding:0 0 2px;
-  transition:color .25s ease,border-color .25s ease;
-}
-.writebtn:hover{color:var(--ink);border-bottom-color:var(--ink)}
-.article.editing .writebtn{color:var(--red);border-bottom-color:var(--red)}
-
 .tools{
   clear:both;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
   margin-top:22px;padding:10px 12px;
@@ -829,7 +820,6 @@ a{color:inherit;text-decoration:none}
   .tools button{font-size:13px;padding:5px 9px;white-space:nowrap;flex:0 0 auto}
   .tools .sep{flex:0 0 auto}
   #codebox{min-height:150px;font-size:11.5px}
-  .writebtn{font-size:15px}
 }
 
 
@@ -1962,14 +1952,9 @@ function figureHTML(b){
       <span class="crop"${ratio!=='auto' ? ` style="aspect-ratio:${ratio}"` : ''}>
         <img src="${esc(b.img)}" alt="${esc(b.alt || '')}"
           style="object-position:${b.fx ?? 50}% ${b.fy ?? 50}%;transform:scale(${zoom})">
-        ${EDIT ? '<i class="focal"></i>' : ''}
       </span>
-      ${b.note ? `<span class="note"${EDIT?' contenteditable="true"':''}>${b.note}${
-        EDIT ? '<i class="grip" contenteditable="false">✥</i>' : ''}</span>` : ''}
+      ${b.note ? `<span class="note">${b.note}</span>` : ''}
       ${b.note && b.arrow !== false ? `<svg class="arrowlayer" aria-hidden="true"></svg>` : ''}
-      ${EDIT && b.note && b.arrow !== false ? `<i class="target"></i>` : ''}
-      ${EDIT ? `<i class="hand nw"></i><i class="hand ne"></i>
-                <i class="hand sw"></i><i class="hand se"></i>` : ''}
     </figure>`;
 }
 
@@ -1984,9 +1969,7 @@ function captionHTML(b){
   return `
     <div class="cap tone-${b.tone||'red'}" data-font="${b.font||'hand'}"
       data-tone="${b.tone||'red'}" style="${st}">
-      <span class="captext"${EDIT?' contenteditable="true"':''}>${b.box}</span>
-      ${EDIT ? `<i class="grip" contenteditable="false">✥</i>
-                <i class="hand se"></i><i class="hand sw"></i>` : ''}
+      <span class="captext">${b.box}</span>
     </div>`;
 }
 
@@ -2455,8 +2438,7 @@ function pressHTML(p, story){
       b.size ? `font-size:${b.size}px` : '',
       b.w    ? `max-width:${b.w}%`     : ''
     ].filter(Boolean).join(';');
-    return `<p data-font="${b.font||'body'}" style="${st}"${
-      EDIT?' contenteditable="true"':''}>${b.p}</p>`;
+    return `<p data-font="${b.font||'body'}" style="${st}">${b.p}</p>`;
   });
 
   /* Photographs go in among the paragraphs rather than off in a column of
@@ -2470,12 +2452,9 @@ function pressHTML(p, story){
      sees one ordered run of blocks across the two. */
   const body = pieces.join('');
 
-  return `<article class="press${EDIT?' editing':''}">
+  return `<article class="press">
     <div class="sheet">
       <a href="#/" class="back">back to the index</a>
-      ${EDIT ? '<button class="writebtn" type="button">stop</button>' : ''}
-      ${EDIT ? toolbar() : ''}
-      <textarea id="codebox" hidden readonly spellcheck="false"></textarea>
       <div class="top">
         <header>
           <p class="kicker">${H.kicker || ''}</p>
@@ -2503,13 +2482,8 @@ function renderStory(){
     return;
   }
 
-  app.innerHTML = `<article class="article${EDIT?' editing':''}"><div class="wrap">
+  app.innerHTML = `<article class="article"><div class="wrap">
     <a href="#/" class="back">back to the bouquet</a>
-    <button class="writebtn" type="button">${EDIT ? 'stop' : 'write'}</button>
-    ${EDIT ? toolbar() : ''}
-    <textarea id="codebox" hidden readonly spellcheck="false"></textarea>
-    ${(!EDIT && CURRENT && kept(CURRENT)) ?
-      '<p class="kept">edited in this browser · press write, then save this page to keep it for good</p>' : ''}
     ${story.length ? `
     <div class="story">
       ${story.map(b => {
@@ -2521,7 +2495,7 @@ function renderStory(){
           b.w    ? `max-width:${b.w}%`     : ''
         ].filter(Boolean).join(';');
         return `<p${b.class ? ` class="${b.class}"` : ''} data-font="${b.font||'body'}"
-          style="${st}"${EDIT?' contenteditable="true"':''}>${b.p}</p>`;
+          style="${st}">${b.p}</p>`;
       }).join('')}
     </div>` : ''}
   </div></article>`;
@@ -2529,22 +2503,9 @@ function renderStory(){
   wireStory();
 }
 
-/* The way in and out of writing. With the button gone from the press
-   pages this is how you get there: cmd-E on a Mac, ctrl-E elsewhere. */
-function toggleWrite(){
-  if(EDIT) harvest();
-  EDIT = !EDIT;
-  if(EDIT && !BLOCKS.length) BLOCKS = [{p:'Start here.'}];
-  renderStory();
-}
-
 /* Everything that has to be hooked up after a redraw — the same for both
    layouts, so neither one can quietly lose the editor. */
 function wireStory(){
-  /* the button is gone from the press pages, so this has to survive not
-     finding one */
-  const wb = app.querySelector('.writebtn');
-  if(wb) wb.onclick = toggleWrite;
   const tools = app.querySelector('.tools');
   if(tools){
     /* holding the focus and the text selection where they were is what makes
@@ -2610,10 +2571,6 @@ function route(){
   else                      viewIndex();
 }
 document.addEventListener('keydown', e=>{
-  if((e.metaKey || e.ctrlKey) && (e.key === 'e' || e.key === 'E')){
-    if(!CURRENT) return;
-    e.preventDefault(); toggleWrite(); return;
-  }
   if(e.key !== 'Escape') return;
   /* escape gets you out of cropping first, and out of the card second */
   const c = app.querySelector('.fig.cropping');
