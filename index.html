@@ -1626,14 +1626,25 @@ function viewIndex(){
   sheet.querySelector('.close').onclick = shut;
 
   const q = document.getElementById('q');
+  const ovals = [...document.querySelectorAll('.name-index .name-oval')];
+
+  const filterNames = ()=>{
+    const v = q.value.trim().toLowerCase();
+    ovals.forEach(el=>{
+      const match = !v || el.textContent.trim().toLowerCase().includes(v);
+      el.hidden = !match;
+    });
+  };
+
+  q.addEventListener('input', filterNames);
+  q.addEventListener('search', filterNames);
+
   q.onkeydown = e=>{
     if(e.key !== 'Enter') return;
-    const v = q.value.trim().toLowerCase();
-    if(!v) return;
-    const hit = PEOPLE.find(p =>
-      p.named && !p.soon && (p.name||'').toLowerCase().includes(v)
+    const firstPublished = ovals.find(el =>
+      !el.hidden && el.matches('a.name-oval[href]')
     );
-    if(hit) location.hash = '#/p/' + hit.slug;
+    if(firstPublished) location.hash = firstPublished.getAttribute('href');
   };
 }
 
