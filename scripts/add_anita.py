@@ -59,15 +59,11 @@ if new_insert not in s:
         raise SystemExit("press plate insertion anchor not found")
     s = s.replace(old_insert, new_insert, 1)
 
-index_anchor = '''      <nav class="name-index" aria-label="people">
-                <span class="name-oval soon" aria-disabled="true">ashley</span>'''
-index_with_anita = '''      <nav class="name-index" aria-label="people">
-                <a class="name-oval" href="#/p/anita-wong">anita wong</a>
-                <span class="name-oval soon" aria-disabled="true">ashley</span>'''
+nav_anchor = '<nav class="name-index" aria-label="people">'
 if '#/p/anita-wong' not in s:
-    if index_anchor not in s:
-        raise SystemExit("index anchor not found")
-    s = s.replace(index_anchor, index_with_anita, 1)
+    if nav_anchor not in s:
+        raise SystemExit("index nav anchor not found")
+    s = s.replace(nav_anchor, nav_anchor + '\n                <a class="name-oval" href="#/p/anita-wong">anita wong</a>', 1)
 
 anita = r'''  { slug:"anita-wong", named:true, name:"Anita Wong",
     shape:"cosmos", colour:8,
