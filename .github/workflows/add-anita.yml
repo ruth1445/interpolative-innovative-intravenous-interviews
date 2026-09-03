@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/add-anita.yml'
+      - 'scripts/add_anita.py'
   workflow_dispatch:
 
 permissions:
