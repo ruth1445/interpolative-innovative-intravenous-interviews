@@ -665,8 +665,7 @@ a{color:inherit;text-decoration:none}
 .press .cols .plate.wide{
   column-span:all;margin:.4em 0 1.1em;
 }
-.press .cols .plate-pair{
-  column-span:all;
+.press .plate-pair{
   display:grid;
   grid-template-columns:minmax(0,.663fr) minmax(0,1.253fr);
   gap:clamp(10px,1.4vw,18px);
@@ -681,7 +680,7 @@ a{color:inherit;text-decoration:none}
   z-index:0;
   overflow:visible;
 }
-.press .cols .plate-pair .pairshot{
+.press .plate-pair .pairshot{
   display:block;
   min-width:0;
   position:relative;
@@ -689,15 +688,14 @@ a{color:inherit;text-decoration:none}
   border:1px solid rgba(18,17,12,.85);
   background:#E4D9BE;
 }
-.press .cols .plate-pair .pairshot img{
+.press .plate-pair .pairshot img{
   display:block;
   width:100%;
   height:100%;
   object-fit:cover;
 }
 @media(max-width:900px){
-  .press .cols .plate-pair{
-    column-span:none;
+  .press .plate-pair{
     grid-template-columns:minmax(0,.663fr) minmax(0,1.253fr);
     gap:8px;
     margin:.7em 0 1em;
@@ -1095,11 +1093,11 @@ const PEOPLE = [
       kicker:'',
       shout:'Anita Wong',
       plates:{ of:[
-        { img:'anita-portrait.jpg?v=3', ar:1.508, after:1, fx:50, fy:50, w:92, wide:true,
+        { img:'anita-portrait.jpg?v=4', ar:1.508, after:1, fx:50, fy:50, w:92, wide:true,
           alt:'Anita Wong with a friend' },
         { pair:[
-            { img:'anita-subway.jpg?v=3', ar:0.663, alt:'New York City subway interior' },
-            { img:'anita-seinfeld.jpg?v=3', ar:1.253, alt:'Seinfeld subway scene' }
+            { img:'anita-subway.jpg?v=4', ar:0.663, alt:'New York City subway interior' },
+            { img:'anita-seinfeld.jpg?v=4', ar:1.253, alt:'Seinfeld subway scene' }
           ], after:4 }
       ]}
     },
@@ -2680,10 +2678,24 @@ function pressHTML(p, story){
   ((H.plates && H.plates.of) || []).slice().sort((a,b)=>(b.after||0)-(a.after||0))
     .forEach(p => pieces.splice(Math.min(p.after ?? pieces.length, pieces.length),
                                 0, p.pair ? platePairHTML(p) : plateHTML(p)));
-  /* the first couple of paragraphs run beside the headline; the rest fall
-     into the three columns. Both boxes are `.story`, so the editor still
-     sees one ordered run of blocks across the two. */
-  const body = pieces.join('');
+  /* A paired photo strip sits BETWEEN newspaper-column runs rather than
+     spanning from inside one. This avoids Safari's multicolumn/grid overlap
+     bug while keeping both pictures in one clean row. */
+  const sections = [];
+  let run = [];
+  pieces.forEach(piece => {
+    if(piece.includes('class="plate-pair"')){
+      if(run.length){
+        sections.push(`<div class="story cols">${run.join('')}</div>`);
+        run = [];
+      }
+      sections.push(piece);
+    } else {
+      run.push(piece);
+    }
+  });
+  if(run.length) sections.push(`<div class="story cols">${run.join('')}</div>`);
+  const body = sections.join('');
 
   return `<article class="press">
     <div class="sheet">
@@ -2694,7 +2706,7 @@ function pressHTML(p, story){
           <h1 class="shout">${H.shout || esc(p.name || '')}</h1>
         </header>
       </div>
-      <div class="story cols">${body}</div>
+      ${body}
       <div class="colophon"></div>
     </div>
   </article>`;
