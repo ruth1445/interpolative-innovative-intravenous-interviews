@@ -1,0 +1,31 @@
+name: Finish branding and pull quotes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/finish-branding-quotes.yml'
+      - 'scripts/finish_branding_quotes.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply branding and quote fit
+        run: python scripts/finish_branding_quotes.py
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Fit pull quotes and update tab branding [skip ci]"
+          git push
