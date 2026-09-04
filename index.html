@@ -666,19 +666,13 @@ a{color:inherit;text-decoration:none}
   column-span:all;margin:.4em 0 1.1em;
 }
 .press .plate-pair{
-  display:grid;
-  grid-template-columns:minmax(0,.663fr) minmax(0,1.253fr);
-  gap:clamp(10px,1.4vw,18px);
-  align-items:start;
+  display:block;width:100%;box-sizing:border-box;
+  margin:.45em 0 1em;
+  break-inside:avoid;page-break-inside:avoid;
+}
+.press .plate-pair .pairrow{
+  display:flex;align-items:flex-start;justify-content:space-between;
   width:100%;
-  box-sizing:border-box;
-  margin:.8em 0 1.35em;
-  break-inside:avoid;
-  page-break-inside:avoid;
-  clear:both;
-  position:relative;
-  z-index:0;
-  overflow:visible;
 }
 .press .plate-pair .pairshot{
   display:block;
@@ -750,10 +744,10 @@ a{color:inherit;text-decoration:none}
 .anita-press .top{
   margin-bottom:10px;
   padding-bottom:8px;
-  border-bottom:3px double rgba(18,17,12,.82);
+  border-bottom:1px solid rgba(18,17,12,.6);
 }
 .anita-press .shout{
-  color:#171611;
+  color:var(--press-red);
   font-size:clamp(38px,5.4vw,72px);
   line-height:.9;
   letter-spacing:-.025em;
@@ -764,26 +758,21 @@ a{color:inherit;text-decoration:none}
   padding-top:8px;
 }
 .anita-press .cols .plate{
-  width:min(88%,230px) !important;
-  max-width:230px;
-  margin:.35em auto .9em;
-  padding:4px;
-  box-sizing:border-box;
-  border:1px solid rgba(18,17,12,.72);
+  /* full column width. These were capped at 230px and centred, which left a
+     hole down one side of the column and a gap under the picture. */
+  width:100% !important;max-width:none;
+  margin:.45em 0 1em;
+  padding:4px;box-sizing:border-box;
+  border:1px solid rgba(18,17,12,.76);
   background:#eadfc4;
 }
 .anita-press .cols .plate .shot{
   border:1px solid rgba(18,17,12,.92);
 }
 .anita-press .plate-pair{
-  width:56%;
-  max-width:510px;
-  grid-template-columns:minmax(0,.72fr) minmax(0,1.36fr);
-  gap:8px;
-  align-items:start;
-  margin:.95em auto 1.05em;
-  padding:5px;
-  box-sizing:border-box;
+  width:100%;max-width:none;
+  margin:.45em 0 1em;
+  padding:4px;box-sizing:border-box;
   border:1px solid rgba(18,17,12,.76);
   background:#eadfc4;
 }
@@ -794,37 +783,71 @@ a{color:inherit;text-decoration:none}
 .anita-press .plate-pair .pairshot img{
   filter:saturate(.84) contrast(.98);
 }
-/* Splitting the columns around the photo pair must not create a second
-   decorative drop cap when the prose resumes. */
-.anita-press .plate-pair + .story.cols p:first-of-type::first-letter{
-  float:none;
-  font-family:inherit;
-  font-weight:inherit;
-  font-size:inherit;
-  line-height:inherit;
-  margin:0;
-  color:inherit;
-}
-@media(max-width:900px){
-  .anita-press .cols .plate{
-    width:min(72%,220px) !important;
-    max-width:220px;
-  }
-  .anita-press .plate-pair{
-    width:min(88%,500px);
-    grid-template-columns:minmax(0,.72fr) minmax(0,1.36fr);
-    gap:7px;
-  }
-}
+/* The rule that killed a second drop cap after the photo pair is gone with
+   the split it was patching — there is only one column run now, so there is
+   only ever one first paragraph. */
 @media(max-width:560px){
-  .anita-press .plate-pair{
-    width:94%;
-    padding:4px;
-    gap:5px;
-  }
-  .anita-press .cols .plate{
-    width:min(78%,210px) !important;
-  }
+  /* on a phone the pair stacks rather than squeezing two pictures into a
+     column barely wider than a thumbnail */
+  .press .plate-pair .pairrow{flex-direction:column;gap:8px}
+  .press .plate-pair .pairshot{width:100% !important}
+}
+
+/* a line she said, set as a pull quote rather than a bold paragraph that
+   reads like a stray heading */
+.press .cols p.pull{
+  margin:.55em 0 .8em;
+  padding:.42em 0 .5em;
+  border-top:1px solid rgba(140,32,32,.5);
+  border-bottom:1px solid rgba(140,32,32,.5);
+  font-family:var(--shout);font-weight:700;font-style:normal;
+  font-size:clamp(15px,1.5vw,21px);line-height:1.16;
+  letter-spacing:-.012em;
+  color:var(--press-red);
+  text-align:left;hyphens:manual;
+  break-inside:avoid;
+}
+.press .cols p.pull strong{font-weight:inherit}
+
+/* the line under a pair of photographs */
+.press .cols .paircap{
+  margin:7px 0 0;
+  font-family:var(--press);font-style:italic;
+  font-size:clamp(11.2px,.94vw,13px);line-height:1.34;
+  color:#5C5342;text-align:left;hyphens:manual;
+  break-inside:avoid;
+}
+
+/* a ruled panel, the way a magazine boxes off a list of tips */
+.press .cols .panel{
+  break-inside:avoid;page-break-inside:avoid;
+  margin:.55em 0 .9em;padding:11px 13px 12px;
+  /* the same board and the same rule as the photo boxes, so every box on
+     the page reads as the same object */
+  border:1px solid rgba(18,17,12,.76);
+  background:#eadfc4;
+}
+.press .cols .panel h4{
+  margin:0 0 .5em;padding-bottom:.4em;
+  border-bottom:1px solid rgba(140,32,32,.42);
+  font-family:var(--shout);font-weight:700;
+  font-size:clamp(15px,1.5vw,21px);line-height:1.1;
+  letter-spacing:-.012em;text-transform:uppercase;
+  color:var(--press-red);
+}
+.press .cols .panel ul{margin:0;padding:0;list-style:none}
+.press .cols .panel li{
+  margin:0 0 .46em;padding:0 0 0 15px;
+  font-family:var(--press);
+  font-size:clamp(12.2px,1.02vw,14.4px);line-height:1.4;
+  color:#241F19;text-align:left;hyphens:manual;
+  position:relative;
+}
+.press .cols .panel li:last-child{margin-bottom:0}
+.press .cols .panel li::before{
+  content:'';position:absolute;left:2px;top:.44em;
+  width:5px;height:5px;background:var(--press-red);
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
 }
 
 /* ---- the body, in columns ---- */
@@ -1172,49 +1195,47 @@ const PEOPLE = [
   { slug:"anita-wong", named:true, name:"Anita Wong",
     shape:"cosmos", colour:8,
     press:{
-      kicker:'',
-      shout:'Anita Wong',
+      /* her own sentence, split the way the page splits: the set-up small,
+         the landing big. */
+      kicker:'the medicine that is',
+      shout :'human connection',
       plates:{ of:[
-        { img:'anita-portrait.jpg?v=5', ar:1.508, after:1, fx:50, fy:50, w:88,
+        { img:'anita-portrait.jpg?v=5', ar:1.508, after:2, fx:50, fy:50,
           alt:'Anita Wong with a friend' },
+        /* directly under the paragraph that ends on the LEGO bag and the
+           brown suitcase */
         { pair:[
             { img:'anita-subway.jpg?v=5', ar:0.663, alt:'New York City subway interior' },
             { img:'anita-seinfeld.jpg?v=5', ar:1.253, alt:'Seinfeld subway scene' }
-          ], after:4 }
+          ], after:3,
+          cap:'<b>Left</b>: The 1 train <b>Right</b>: The Subway (Seinfeld, 1992) My favourite Seinfeld scenes are the ones involving subway travel!' }
       ]}
     },
     story:[
-      { p:`A day before I interviewed Anita, I read a note on Substack that said the best souvenir is probably realizing you want something different from your life once you get home. This was a delightful coincidence considering the very thing that had pulled me toward Anita was her attitude towards travel. I met her on a very hot day in Manhattan. Walking in the heat amidst the huge crowds had sapped my strength and maybe because of that, I was craving a good conversation. One sign of a really good one is how it uplifts you afterward, especially if you were feeling drained before. Striking up a conversation with Anita had precisely that effect on me.` },
+      { p:`A day before I interviewed Anita, I read a note on Substack that said the best souvenir is probably realizing you want something different from your life once you get home. This was a delightful coincidence considering the very thing that had pulled me toward Anita was her attitude towards travel. I met her on a very hot day in Manhattan where I had walked many miles under the scorching sun. It sapped all my strength and yet, I was craving a good conversation. One sign of a really good one is how it uplifts you afterward, especially if you were feeling drained before. Striking up a conversation with Anita had precisely that effect on me.` },
 
-      { p:`A lot of the people I meet in NYC are actually from SF. So when Anita said she was just visiting, I assumed she too, was from California. Turns out she wasn&rsquo;t even from America. She was visiting from Toronto, Canada and she was in NYC &ldquo;for the vibes&rdquo;. I instantly knew that I was in the presence of someone who is very aware of her free will and will use it however and whenever she can. So two nights ago, we were in a Zoom meeting; just two girls in their PJs on either side of the screen yapping away.` },
+      { p:`A lot of the people I meet in NYC are actually from SF. So when Anita said she was just visiting, I assumed she too, was from California. Turns out she wasn&rsquo;t even from America. She was visiting from Toronto, Canada and she was in NYC &ldquo;for the vibes&rdquo;. I instantly knew that I was in the presence of someone who was very aware of her free will and would use it however and whenever she can. So two nights ago, we were in a Zoom meeting; just two girls in their PJs on either side of the screen yapping away.` },
 
-      { p:`<strong>&ldquo;I went to New York because I needed to actually know who I am as a person.&rdquo;</strong>` },
+      { p:`I told her about the Substack note to learn what she&rsquo;d taken from her own trips. She said traveling, especially solo, reminds her of who she really is. So much of how we act and react depends on who is watching. Spend next to no time by ourselves and we might forget who we truly are. Thankfully, there are a lot of ways to find that out. For Anita it was a solo trip to New York. On these trips she remembers that she can take care of herself first, be attuned to what she needs, what she likes, and doesn&rsquo;t like. Her first trip to NYC was when she was 19 and it truly changed her life. She realized how much she loves people and connections. She grew up in Toronto and I grew up in Riyadh, both busy and beautiful cities. But we agreed that New York has a soul unlike other cities, and that it&rsquo;s a great place to people watch. I rode the L for the first time last week and every third person had a book which they promptly put down one station before their stop. One woman balanced her groceries in a worn out LEGO bag in one hand and a big brown suitcase in the other. She then plopped into the seat beside a man holding nothing but a book and his phone. People watching can be fun, but talking to them can be even more entertaining.` },
 
-      { p:`I told her about the Substack note to learn what she&rsquo;d taken from her own trips. She said travel reminds her of who she really is. So much of how we act and react depends on who&rsquo;s around us and we spend so much time around other people that we might forget who we truly are. Thankfully, there are a lot of ways to find that out. For Anita it was a solo trip to New York. On these trips she remembers that she can take care of herself first, be attuned to what she needs, what she actually wants to do, what she likes and doesn&rsquo;t like. Her first trip to NYC was when she was 19 and it truly changed her life. She realized how much she loves people and connections. She grew up in Toronto and I grew up in Riyadh, both busy and beautiful cities. But we agreed that New York has a soul unlike other cities, and that it&rsquo;s a great place to watch people. I rode the L for the first time last week and every third person had a book which they promptly put down one station before their stop. One woman balanced her groceries in a worn out LEGO bag in one hand and a big brown suitcase in the other. She then plopped into the seat beside a man holding nothing but a book and his phone. People watching can be fun, but talking to them can be even more entertaining.` },
+      { class:'pull', p:`&ldquo;Meeting certain people just makes you realize, my god, I love people.&rdquo;` },
 
-      { p:`<strong>&ldquo;Meeting certain people just makes you realize, my god, I love people.&rdquo;</strong>` },
+      { p:`Anita met a girl at the Aloe Run Club who invited her to Brooklyn the next day for yoga. The girl introduced her to two younger sisters, and afterward they took her out for coffee and donuts. They felt like older siblings she&rsquo;d known for years. I realized I too, could list many such experiences of my own involving the loveliest people and the most stimulating conversations.` },
 
-      { p:`Anita met a girl at the Aloe Run Club who told her to come to Brooklyn the next day for yoga. Anita just up and went. The girl introduced her to two younger sisters, and afterward they took her out for coffee and donuts. They felt like older siblings she&rsquo;d known them for years. I could list similar experiences of my own involving the loveliest people and the most stimulating conversations.` },
+      { p:`When asked about her taste in music, she told she is very basic. Far from it. She&rsquo;s an Asian woman from Canada who loves country music, a certified Bollywood dance instructor, a sports instructor, and she has the personality of a bright celestial body. She also runs headfirst at things that scare her. For her twentieth birthday, she ran twenty kilometers. For her nineteenth, she took herself to a restaurant alone and sat through the waiters&rsquo; stares. If she has something nice to say about someone, you better believe she will find a way to say it. Not surprisingly, people that get her attention are the genuinely passionate kind. She also appreciates a good conversationalist; someone who can listen just as much as they talk. How poetic that she is the very embodiment of the kind of people she admires. I also have become monomaniacal about who I spend time with and what I consume. I am terrified at the thought of the wrong food, literature, media, and conversations getting into my system. While I cannot control every single conversation I have, I can certainly curate who I talk to. I am drawn to people who are open to learn and experience all they can and let those things change how they think.` },
 
-      { p:`She told me her taste in music is very basic. She is not basic. She&rsquo;s an Asian woman in Canada who loves country music, a certified Bollywood dance instructor, a sports instructor, and she has the personality of a grand national park. She also runs headfirst at things that scare her. For her twentieth birthday, she ran twenty kilometers. For her nineteenth, she took herself to a restaurant alone and sat through the waiters&rsquo; stares. If she has something nice to say about someone, you better believe she will find a way to say it. Not surprisingly, people that get her attention are the genuinely passionate kind. about something outside the mainstream &mdash; planets, music, whatever it is. You can tell within the first few seconds of talking to someone. Conversation is an art, and not many people can do it. She goes to an engineering school where most people are shy, and the ones who aren&rsquo;t shy are incredibly talkative but don&rsquo;t know how to share a conversation. I&rsquo;ve become monomaniacal about what I consume. I&rsquo;m scared of the wrong food, literature, media, and conversation getting into my system. While I cannot control every single conversation I have, I can certainly curate who I talk to.` },
+      { class:'pull', p:`&ldquo;I think my biggest passion project right now is myself.&rdquo;` },
 
-      { p:`So I&rsquo;m drawn to people who go looking for things and let those things change how they think. Anita can talk about everything she&rsquo;s done and still listen closely to yours. She asks good questions. She makes people feel heard.` },
-
-      { p:`<strong>&ldquo;I think my biggest passion project right now is myself.&rdquo;</strong>` },
-
-      { p:`What a wonderful way to look at it. Working on yourself is truly underrated.` },
-
-      { p:`She is also very passionate about waste management. She could talk about it for hours. got into it around grade eleven and never got out. How different countries handle it, why North American practice is so bad, and how quickly that becomes a question about race &mdash; which neighborhoods get chosen as landfills, whose communities end up next to the places that burn things.` },
+      { p:`I am drawn like a moth to a flame to people who understand that we do not control what we are born into but are largely responsible for the person we become. The most intense people I know are constantly reinventing themselves and tinkering with an idea till they&rsquo;re bored of it. The depth in which people are willing to go into something, especially when there&rsquo;s no gain, monetary or otherwise, involved, but only the gain of knowledge, is admirable. Anita is extremely passionate about waste management. She could talk about it for hours. She spoke to me about how different countries handle it, why the North American practice is so bad, which neighborhoods get chosen as landfills, and whose communities end up next to the places that burn things.` },
 
       { p:`I&rsquo;ll leave you with some of the life hacks she swears by:` },
 
-      { p:`She sets a weekly running goal, usually twenty to thirty kilometers, and it&rsquo;s hard, but she knows she&rsquo;ll feel better once she&rsquo;s out. Intentional movement in the morning is one of her cheat codes.` },
-
-      { p:`She has to read before bed, something that makes her happy or calm &mdash; self-help, or a romance novel, because those always end well.` },
-
-      { p:`Fridays are for self-care.` },
-
-      { p:`She loves journaling and writing music.` }
+      { list:{ title:'Her life hacks', items:[
+        `She sets a weekly running goal, usually twenty to thirty kilometers, and it&rsquo;s hard, but she knows she&rsquo;ll feel better once she&rsquo;s out. Intentional movement in the morning is one of her cheat codes.`,
+        `She has to read before bed, something that makes her happy or calm &mdash; self-help, or a romance novel, because those always end well.`,
+        `Fridays are for self-care.`,
+        `She loves journaling and writing music.`
+      ]}}
     ]
   },
   { slug:"siddharth", named:true, name:"Siddharth",
@@ -1964,7 +1985,8 @@ const numOf = v => Math.round(parseFloat(v)*10)/10;
 const partsOf = host => [...host.children].filter(el =>
   !el.classList.contains('ghostline') &&
   !el.classList.contains('dropline') &&
-  !el.classList.contains('plate'));
+  !el.classList.contains('plate') &&
+  !el.classList.contains('plate-pair'));   /* a pair is a plate too */
 
 /* The writing can be split across two boxes — the opening paragraphs beside
    the headline, the rest in the columns. Everything that counts or indexes
@@ -1975,6 +1997,9 @@ const allParts = () => [...app.querySelectorAll('.story')].flatMap(partsOf);
 function harvest(){
   if(!app.querySelector('.story')) return;
   BLOCKS = allParts().map(el=>{
+    if(el.classList.contains('panel') && el.dataset.list){
+      try{ return {list: JSON.parse(el.dataset.list)}; }catch(e){}
+    }
     if(el.classList.contains('fig')){
       const b = {img: el.dataset.src};
       if(el.dataset.alt) b.alt = el.dataset.alt;
@@ -2004,6 +2029,7 @@ function harvest(){
               tone: el.dataset.tone || 'red'};
     }
     const b = {p: tidy(el.innerHTML)};
+    if(el.classList.contains('pull')) b.class = 'pull';
     if(el.dataset.font && el.dataset.font!=='body') b.font = el.dataset.font;
     if(el.style.fontSize) b.size = numOf(el.style.fontSize);
     if(el.style.maxWidth) b.w = numOf(el.style.maxWidth);
@@ -2023,7 +2049,10 @@ function storyCode(){
       `        tx:${b.tx??18}, ty:${b.ty??48}${b.arrow===false?', arrow:false':''} },`;
     if(b.box !== undefined) return `      { box:\`${q(b.box)}\`, x:${b.x}, y:${b.y}, w:${b.w},\n` +
       `        rot:${b.rot||0}, font:'${b.font||'hand'}', size:${b.size||19}, tone:'${b.tone||'red'}' },`;
-    return '      { p:`' + q(b.p) + '`' +
+    if(b.list) return '      { list:{ title:`' + q(b.list.title||'') + '`, items:[\n' +
+      (b.list.items||[]).map(t => '        `' + q(t) + '`').join(',\n') +
+      '\n      ]}},';
+    return '      { ' + (b.class?`class:'${b.class}', `:'') + 'p:`' + q(b.p) + '`' +
       (b.font?`, font:'${b.font}'`:'') + (b.size?`, size:${b.size}`:'') +
       (b.w?`, w:${b.w}`:'') + ' },';
   }).join('\n\n') + '\n    ]';
@@ -2673,15 +2702,37 @@ function plateHTML(p){
   </figure>`;
 }
 
+/* The boxed list. Its contents ride along in a data attribute so that
+   reading the page back in write mode returns a list block rather than a
+   paragraph full of markup. */
+function panelHTML(b){
+  const items = (b.list.items || []).map(t => `<li>${t}</li>`).join('');
+  return `<aside class="panel" data-list="${esc(JSON.stringify(b.list))}">
+    ${b.list.title ? `<h4>${b.list.title}</h4>` : ''}
+    <ul>${items}</ul>
+  </aside>`;
+}
+
 function platePairHTML(p){
-  const shots = (p.pair || []).map(x => {
+  /* Two pictures side by side at the same height. The widths are shared out
+     in proportion to each one's shape, so equal heights fall out of the
+     arithmetic rather than out of grid fractions — which is what lets the
+     pair sit inside a column instead of interrupting it. */
+  const list = p.pair || [];
+  const tot  = list.reduce((n,x)=> n + (x.ar || 1.333), 0) || 1;
+  const gap  = (list.length - 1) * 2.2;          /* the gutter, in percent */
+  const shots = list.map(x => {
     const ar = x.ar || 1.333;
+    const w  = ((ar / tot) * (100 - gap)).toFixed(3);
     return `
-      <span class="pairshot" style="aspect-ratio:${ar}">
+      <span class="pairshot" style="width:${w}%;aspect-ratio:${ar}">
         <img src="${esc(x.img)}" alt="${esc(x.alt||'')}" loading="lazy">
       </span>`;
   }).join('');
-  return `<figure class="plate-pair">${shots}</figure>`;
+  return `<figure class="plate-pair">
+    <span class="pairrow">${shots}</span>
+    ${p.cap ? `<figcaption class="paircap">${p.cap}</figcaption>` : ''}
+  </figure>`;
 }
 
 /* Centre Siddharth's photo plates against the separators the eye actually
@@ -2744,6 +2795,7 @@ function pressHTML(p, story){
   const pieces = rest.map(b => {
     if(b.img !== undefined) return figureHTML(b);
     if(b.box !== undefined) return captionHTML(b);
+    if(b.list) return panelHTML(b);
     /* the type controls have to reach this layout too, or A+, font and
        column silently do nothing on a press page */
     const st = [
@@ -2751,7 +2803,8 @@ function pressHTML(p, story){
       b.size ? `font-size:${b.size}px` : '',
       b.w    ? `max-width:${b.w}%`     : ''
     ].filter(Boolean).join(';');
-    return `<p data-font="${b.font||'body'}" style="${st}">${b.p}</p>`;
+    return `<p${b.class ? ` class="${b.class}"` : ''} data-font="${b.font||'body'}"
+      style="${st}">${b.p}</p>`;
   });
 
   /* Photographs go in among the paragraphs rather than off in a column of
@@ -2760,24 +2813,11 @@ function pressHTML(p, story){
   ((H.plates && H.plates.of) || []).slice().sort((a,b)=>(b.after||0)-(a.after||0))
     .forEach(p => pieces.splice(Math.min(p.after ?? pieces.length, pieces.length),
                                 0, p.pair ? platePairHTML(p) : plateHTML(p)));
-  /* A paired photo strip sits BETWEEN newspaper-column runs rather than
-     spanning from inside one. This avoids Safari's multicolumn/grid overlap
-     bug while keeping both pictures in one clean row. */
-  const sections = [];
-  let run = [];
-  pieces.forEach(piece => {
-    if(piece.includes('class="plate-pair"')){
-      if(run.length){
-        sections.push(`<div class="story cols">${run.join('')}</div>`);
-        run = [];
-      }
-      sections.push(piece);
-    } else {
-      run.push(piece);
-    }
-  });
-  if(run.length) sections.push(`<div class="story cols">${run.join('')}</div>`);
-  const body = sections.join('');
+  /* ONE column flow, always. The paired photograph used to be lifted out
+     between separate multicol blocks; each block then balanced on its own,
+     which is exactly where the ragged bottoms and the empty page came from.
+     It now sits inside the flow like any other figure. */
+  const body = `<div class="story cols">${pieces.join('')}</div>`;
 
   return `<article class="press${p.slug==='anita-wong' ? ' anita-press' : ''}">
     <div class="sheet">
