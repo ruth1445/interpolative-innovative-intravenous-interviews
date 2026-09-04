@@ -856,6 +856,10 @@ a{color:inherit;text-decoration:none}
   clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
 }
 
+/* Anita's final tips box keeps the frame, but not the red subheading/rule. */
+.anita-press .cols .panel h4{display:none}
+.anita-press .cols .panel{padding-top:12px}
+
 /* ---- the body, in columns ---- */
 .press .cols{
   column-count:3;column-gap:clamp(20px,2.4vw,34px);
@@ -1224,7 +1228,7 @@ const PEOPLE = [
 
       { class:'pull', p:`&ldquo;I went to New York because I needed to actually know who I am as a person.&rdquo;` },
 
-      { p:`I told her about the Substack note to learn what she&rsquo;d taken from her own trips. She said traveling, especially solo, reminds her of who she really is. So much of how we act and react depends on who is watching. Spend next to no time by ourselves and we might forget who we truly are. Thankfully, there are a lot of ways to find that out. For Anita it was a solo trip to New York. On these trips she remembers that she can take care of herself first, be attuned to what she needs, what she likes, and doesn&rsquo;t like. Her first trip to NYC was when she was 19 and it truly changed her life. She realized how much she loves people and connections. She grew up in Toronto and I grew up in Riyadh, both busy and beautiful cities. But we agreed that New York has a soul unlike other cities, and that it&rsquo;s a great place to people watch. I rode the L for the first time last week and every third person had a book which they promptly put down one station before their stop. One woman balanced a worn out LEGO bag bursting at the seams in one hand and a big brown suitcase in the other. She then plopped into the seat beside a man holding nothing but a book and his phone. People watching can be fun, but talking to them can be even more entertaining.` },
+      { p:`I told her about the Substack note to learn what she&rsquo;d taken from her own trips. She said traveling, especially solo, reminds her of who she really is. So much of how we act and react depends on who is watching. When we are truly all alone feeling small in a huge world, we might just find out who we truly are. For Anita, this was when she first travelled solo to New York City. On these trips she remembers that she can take care of herself first, be attuned to what she needs, what she likes, and doesn&rsquo;t like. Her first trip to NYC was when she was 19 and it truly changed her life. She realized how much she loves people and connections. She grew up in Toronto and I grew up in Riyadh, both busy and beautiful cities. But we agreed that New York has a soul unlike other cities, and that it&rsquo;s a great place to people watch. I rode the L for the first time last week and every third person had a book which they promptly put down one station before their stop. One woman balanced a worn out LEGO bag bursting at the seams in one hand and a big brown suitcase in the other. She then plopped into the seat beside a man holding nothing but a book and his phone. People watching can be fun, but talking to them can be even more entertaining.` },
 
       { class:'pull', p:`&ldquo;Meeting certain people just makes you realize, my god, I love people.&rdquo;` },
 
@@ -1234,7 +1238,9 @@ const PEOPLE = [
 
       { class:'pull', p:`&ldquo;I think my biggest passion project right now is myself.&rdquo;` },
 
-      { p:`I am drawn like a moth to a flame to people who understand that we do not control what we are born into but are largely responsible for the person we become. The most intense people I know are constantly reinventing themselves and tinkering with ideas till they&rsquo;re bored of it. They dare to go knee deep, especially when there&rsquo;s no gain, monetary or otherwise, involved, seeking only to learn. This week, one of my very wise friends texted me thus: &ldquo;The pleasure of learning without objective or timeline is unparalleled.&rdquo; I could not have summed it better myself. Anita is extremely passionate about waste management and could talk about it for hours. She told me about how different countries handle it, why the North American practice is so bad, which neighborhoods get chosen as landfills, and whose communities end up next to the places that burn things. It didn&rsquo;t matter that I know next to nothing about waste management. Passion is contagious and will infect you too. You must simply allow it to.` },
+      { p:`I am drawn like a moth to a flame to people who understand that we do not control what we are born into but are largely responsible for the person we become. The most intense people I know are constantly reinventing themselves and tinkering with ideas till they&rsquo;re bored of it. They dare to go knee deep, especially when there&rsquo;s no gain, monetary or otherwise, involved, seeking only to learn. This week, one of my very wise friends texted me thus: &ldquo;The pleasure of learning without objective or timeline is unparalleled.&rdquo; I could not have summed it better myself.` },
+
+      { p:`Anita is extremely passionate about waste management and could talk about it for hours. She told me about how different countries handle it, why the North American practice is so bad, which neighborhoods get chosen as landfills, and whose communities end up next to the places that burn things. It didn&rsquo;t matter that I know next to nothing about waste management. Passion is contagious and will infect you too if you simply allow it to.` },
 
       { p:`I&rsquo;ll leave you with some of the life hacks/advice she swears by:` },
 
@@ -1912,7 +1918,7 @@ function load(p){
       /* Preserve local edits, but migrate the one Siddharth link added
          after those edits may have been saved in this browser. */
       if(p.slug === 'anita-wong'){
-        const FINAL_ANITA_MARKER = 'The pleasure of learning without objective or timeline is unparalleled.';
+        const FINAL_ANITA_MARKER = 'Passion is contagious and will infect you too if you simply allow it to.';
         if(!JSON.stringify(saved).includes(FINAL_ANITA_MARKER)){
           try{ localStorage.removeItem(keyFor(p)); }catch(e){}
           return JSON.parse(JSON.stringify(p.story || []));
