@@ -893,9 +893,20 @@ a{color:inherit;text-decoration:none}
   clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
 }
 
-/* Anita's final tips box keeps the frame, but not the red subheading/rule. */
+/* Anita's final tips box keeps the frame, but not the red subheading/rule.
+   Keep the intro line attached to the box and override the generic panel
+   margins that appear earlier in the stylesheet. */
 .anita-press .cols .panel h4{display:none}
-.anita-press .cols .panel{padding-top:12px}
+.anita-press .cols p:has(+ .panel){
+  margin-bottom:.10em;
+  break-after:avoid-column;
+}
+.anita-press .cols .panel{
+  position:static;
+  margin:.05em 0 0 !important;
+  padding-top:12px;
+}
+.anita-press .colophon{margin-top:6px !important}
 
 /* ---- the body, in columns ---- */
 .press .cols{
