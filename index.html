@@ -774,8 +774,19 @@ a{color:inherit;text-decoration:none}
   transform:rotate(1deg);
 }
 @media(max-width:560px){
-  .anita-press .top header{grid-template-columns:minmax(0,1fr) 68px;column-gap:7px}
-  .anita-press .anita-title-pin{width:68px;max-width:68px;padding:1px}
+  .anita-press .top header{
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto auto auto;
+    row-gap:4px;
+  }
+  .anita-press .top .kicker{grid-column:1;grid-row:1}
+  .anita-press .top .shout{grid-column:1;grid-row:2}
+  .anita-press .anita-title-pin{
+    grid-column:1;grid-row:3;
+    justify-self:end;
+    width:min(42vw,150px);max-width:150px;height:auto;
+    margin-top:5px;padding:1px;
+  }
 }
 /* Keep Anita's final tips box in the actual column flow so it sits snugly
    against the sentence before it and the page ending after it. */
