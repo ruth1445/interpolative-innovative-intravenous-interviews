@@ -766,6 +766,16 @@ a{color:inherit;text-decoration:none}
 }
 .ashley-press .cols a[href]:hover{border-bottom-color:#315B62}
 .ashley-press .colophon::before{border-top-color:rgba(49,91,98,.58)}
+.ashley-press .plate-pair .pairshot img,
+.ashley-press .cols .plate .shot img{
+  object-fit:contain;
+  background:#E8DFC9;
+}
+.ashley-press .plate-pair,
+.ashley-press .cols .plate{
+  break-inside:avoid;
+}
+
 
 /* Anita: denser illustrated-newspaper composition. The writing remains the
    page; photographs are small printed insets with measured white space. */
@@ -1246,7 +1256,36 @@ const PEOPLE = [
     shape:"cosmos", colour:13,
     press:{
       kicker:'looking for',
-      shout:'wildly new sources'
+      shout:'wildly new sources',
+      plates:{ of:[
+        /* Same insertion point + reverse declaration order lets the two
+           render strips land in natural 1→4 order after the paragraph. */
+        { pair:[
+            { img:'render3.jpg', ar:1.250, alt:'Accidental mathematical rendering made by a friend' },
+            { img:'render4.jpg', ar:1.256, alt:'Accidental mathematical rendering made by a friend' }
+          ], after:6,
+          cap:'renderings made by a friend, by accident' },
+        { pair:[
+            { img:'render1.jpg', ar:1.031, alt:'Accidental mathematical rendering made by a friend' },
+            { img:'render2.jpg', ar:1.272, alt:'Accidental mathematical rendering made by a friend' }
+          ], after:6 },
+
+        /* Puja's noticing collection, followed by one of her paintings.
+           These share an insertion point so they stay together as a little
+           visual field note inside the Zach Lieberman paragraph. */
+        { img:'puja_paint.jpg', ar:0.824, after:3, w:82,
+          alt:'A colorful painting by Puja',
+          cap:'one of puja&rsquo;s paintings' },
+        { pair:[
+            { img:'puja_maps.jpg', ar:0.986, alt:'A map detail photographed by Puja' },
+            { img:'manhole_cov.jpg', ar:1.266, alt:'A manhole cover photographed by Puja' }
+          ], after:3 },
+        { pair:[
+            { img:'puja_idol.jpg', ar:1.014, alt:'An idol photographed by Puja' },
+            { img:'puja_ramen.jpg', ar:0.632, alt:'A bowl of ramen photographed by Puja' }
+          ], after:3,
+          cap:'things puja stops to notice' }
+      ]}
     },
     story:[
       { p:`Last week, I told my friend Ashley how unhappy I was with the prevalence of <em><a href="https://www.urbandictionary.com/define.php?term=Turboslop" target="_blank" rel="noopener">turboslop</a></em>. Ashley who is a neuroscientist said it carries a sort of dystopian aspect that seems to increase the more of it you see. I realized how I feel the same way about my work. As a data scientist/statistician/technologist (I don’t quite know what to call myself), I admit that one technology-equipped-human today does the work of tens of thousands of <a href="https://www.deweybstrategic.com/2012/09/a-computer-was-originally-job-title.html" target="_blank" rel="noopener">clerks</a> from 100 years ago. However, I can’t help but feel a bit jaded about data collection, analysis, and visualization. It all happens so passively and I feel removed from the process.` },
