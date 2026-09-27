@@ -2,14 +2,14 @@
 export default { slug:"ashley", named:true, name:"Ashley",
     shape:"cosmos", colour:13,
     press:{
-      kicker:'looking for',
-      shout:'wildly new sources',
+      kicker:'in pursuit of',
+      shout:'Physical Data Science',
       plates:{ of:[
         /* Four ML visualizations, kept together as a 2×2 matrix. */
         { pair:[
-            { img:'pictures/render1.jpg', ar:1, alt:'Visualization from a face anonymization model' },
-            { img:'pictures/render2.jpg', ar:1, alt:'Visualization from a face anonymization model' },
             { img:'pictures/render3.jpg', ar:1, alt:'Visualization from a face anonymization model' },
+            { img:'pictures/render2.jpg', ar:1, alt:'Visualization from a face anonymization model' },
+            { img:'pictures/render1.jpg', ar:1, alt:'Visualization from a face anonymization model' },
             { img:'pictures/render4.jpg', ar:1, alt:'Visualization from a face anonymization model' }
           ], after:8, w:94, zoom:true, class:'ml-renders matrix-2x2' },
 
