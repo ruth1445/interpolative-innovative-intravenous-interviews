@@ -2114,40 +2114,29 @@ function load(p){
    SOURCE is this file exactly as it was before anything was drawn — see
    the bottom of the script. To save, we find this person's story in that
    text, swap in what you've written, and hand the whole file back. */
-let SOURCE = '';
-
-/* walk the brackets to find where `story:[ … ]` ends, minding the fact
-   that the writing itself is full of quotes and backticks */
-function storySpan(src, slug){
-  const at = src.indexOf('slug:"' + slug + '"');
-  if(at < 0) return null;
-  const s = src.indexOf('story:[', at);
-  if(s < 0) return null;
-  let i = s + 6, depth = 0, q = null;
-  for(; i < src.length; i++){
-    const c = src[i];
-    if(q){ if(c === '\\') i++; else if(c === q) q = null; continue; }
-    if(c === '"' || c === "'" || c === '`'){ q = c; continue; }
-    if(c === '[') depth++;
-    else if(c === ']'){ depth--; if(!depth){ i++; break; } }
-  }
-  return depth === 0 ? [s, i] : null;
+/* Save the current interview as its own module. The site used to rewrite the
+   whole HTML file, but interviews now live independently. Keeping the
+   export self-contained means Cmd-E still works after the refactor. */
+function interviewModuleCode(){
+  const record = JSON.parse(JSON.stringify(CURRENT || {}));
+  record.story = JSON.parse(JSON.stringify(BLOCKS || []));
+  return 'export default ' + JSON.stringify(record, null, 2) + ';\n';
 }
 
 function saveCopy(){
   harvest();
-  const span = SOURCE && CURRENT ? storySpan(SOURCE, CURRENT.slug) : null;
-  if(!span){ showCode(); return false; }   // couldn't do it cleanly — fall back
-  const out = SOURCE.slice(0, span[0]) + storyCode() + SOURCE.slice(span[1]);
+  if(!CURRENT) return false;
   try{
-    const url = URL.createObjectURL(new Blob([out], {type:'text/html'}));
+    const out = interviewModuleCode();
+    const url = URL.createObjectURL(new Blob([out], {type:'text/javascript'}));
     const a = document.createElement('a');
-    a.href = url; a.download = 'interviews.html';
+    a.href = url;
+    a.download = CURRENT.slug + '.js';
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(()=>URL.revokeObjectURL(url), 4000);
     const dot = app.querySelector('.saved');
     if(dot){ dot.classList.remove('bad');
-             dot.textContent = 'saved — replace your old interviews.html with it';
+             dot.textContent = 'saved — replace interviews/' + CURRENT.slug + '.js';
              clearTimeout(save._t);
              save._t = setTimeout(()=>{ if(dot) dot.textContent=''; }, 6000); }
     return true;
@@ -3153,10 +3142,6 @@ window.addEventListener('resize', ()=>{
   clearTimeout(rt);
   rt = setTimeout(()=>{ if(!location.hash.replace(/^#\/?/,'')) viewIndex(); }, 180);
 });
-
-/* this file, exactly as it is on disk, caught before a single thing is
-   drawn into it. `save this page` builds the new copy out of this. */
-SOURCE = '<!doctype html>\n' + document.documentElement.outerHTML;
 
 route();
 </script>
