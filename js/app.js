@@ -377,6 +377,17 @@ function flower(p, kind, c, r){
 }
 
 
+function nameIndexHTML(){
+  return PEOPLE
+    .filter(p => p.named)
+    .slice()
+    .sort((a,b) => (a.name || '').localeCompare(b.name || ''))
+    .map(p => p.soon
+      ? `<span class="name-oval soon" aria-disabled="true">${esc(p.name).toLowerCase()}</span>`
+      : `<a class="name-oval" href="#/p/${esc(p.slug)}">${esc(p.name).toLowerCase()}</a>`)
+    .join('\n        ');
+}
+
 function viewIndex(){
   app.innerHTML = `
   <div class="hand-page">
@@ -390,14 +401,7 @@ function viewIndex(){
       </div>
 
       <nav class="name-index" aria-label="people">
-                <a class="name-oval" href="#/p/anita-wong">anita wong</a>
-        <a class="name-oval" href="#/p/ashley">ashley</a>
-        <span class="name-oval soon" aria-disabled="true">george st. camera</span>
-        <span class="name-oval soon" aria-disabled="true">larry</span>
-        <span class="name-oval soon" aria-disabled="true">louis mendez</span>
-        <a class="name-oval" href="#/p/samir-dorothy">samir &amp; dorothy</a>
-        <a class="name-oval" href="#/p/siddharth">siddharth</a>
-        <span class="name-oval soon" aria-disabled="true">tejas</span>
+        ${nameIndexHTML()}
       </nav>
     </div>
   </div>
