@@ -693,15 +693,15 @@ a{color:inherit;text-decoration:none}
   .press .cols .bub{font-size:11px}
 }
 
-/* Ashley: the same mid-century press system, nudged toward a field notebook.
-   A very faint graph-paper grid sits under the type: data made physical,
-   without turning the page into a dashboard. */
+/* Ashley: same mid-century press system, with a plain warm paper ground. */
 .ashley-press .sheet{
   background-color:#F3EAD6;
-  background-image:
-    linear-gradient(180deg,rgba(255,252,244,.58) 0%,rgba(255,252,244,0) 30%,rgba(150,122,74,.045) 100%),
-    repeating-linear-gradient(0deg,rgba(39,74,82,.045) 0 1px,transparent 1px 24px),
-    repeating-linear-gradient(90deg,rgba(39,74,82,.035) 0 1px,transparent 1px 24px);
+  background-image:linear-gradient(
+    180deg,
+    rgba(255,252,244,.58) 0%,
+    rgba(255,252,244,0) 30%,
+    rgba(150,122,74,.045) 100%
+  );
 }
 .ashley-press .top{
   margin-bottom:12px;
