@@ -726,19 +726,6 @@ a{color:inherit;text-decoration:none}
   object-fit:contain;
   background:#E8DFC9;
 }
-/* Match Siddharth's Metrograph caption face: condensed, tracked, uppercase. */
-.ashley-press .cols .paircap{
-  margin-top:6px;
-  font-family:var(--ui);
-  font-style:normal;
-  font-stretch:condensed;
-  font-size:10.6px;
-  line-height:1.3;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  text-align:center;
-  color:#5A5140;
-}
 .ashley-press .plate-pair,
 .ashley-press .cols .plate{
   break-inside:avoid;
@@ -1182,10 +1169,16 @@ a{color:inherit;text-decoration:none}
   text-transform:uppercase;
   color:#5A5140;
 }
+.press.ashley-press .puja-collection,
+.press.ashley-press .puja-art{
+  column-span:all;
+  break-inside:avoid;
+  margin-top:.6em;
+  margin-bottom:1.05em;
+}
 .press.ashley-press .puja-collection .pairrow,
 .press.ashley-press .puja-art .pairrow{
   flex-wrap:nowrap;
-  gap:6px;
 }
 .press.ashley-press .puja-collection .pairshot,
 .press.ashley-press .puja-art .pairshot{
