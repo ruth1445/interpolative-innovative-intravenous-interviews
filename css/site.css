@@ -1169,20 +1169,31 @@ a{color:inherit;text-decoration:none}
   text-transform:uppercase;
   color:#5A5140;
 }
-.press.ashley-press .puja-collection,
-.press.ashley-press .puja-art{
-  column-span:all;
+/* Ashley galleries stay inside the newspaper column flow. Each four-image
+   set is one indivisible 2×2 matrix, never a pair of separate rows. */
+.press.ashley-press .matrix-2x2{
+  column-span:none;
   break-inside:avoid;
-  margin-top:.6em;
+  page-break-inside:avoid;
+  margin-top:.65em;
   margin-bottom:1.05em;
 }
-.press.ashley-press .puja-collection .pairrow,
-.press.ashley-press .puja-art .pairrow{
-  flex-wrap:nowrap;
+.press.ashley-press .matrix-2x2 .pairrow{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:5px;
+  width:100%;
 }
-.press.ashley-press .puja-collection .pairshot,
-.press.ashley-press .puja-art .pairshot{
-  flex:0 1 auto;
+.press.ashley-press .matrix-2x2 .pairshot{
+  width:auto !important;
+  aspect-ratio:1 / 1 !important;
+  min-width:0;
+}
+.press.ashley-press .matrix-2x2 .pairshot img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:#E8DFC9;
 }
 .zoomable-image{
   cursor:zoom-in;
