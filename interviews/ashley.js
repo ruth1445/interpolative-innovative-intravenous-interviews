@@ -20,21 +20,20 @@ export default { slug:"ashley", named:true, name:"Ashley",
         /* Puja's noticing collection, followed by one of her paintings.
            These share an insertion point so they stay together as a little
            visual field note inside the Zach Lieberman paragraph. */
-        /* One compact strip. Add more of Puja's found images here. */
+        /* Puja's art stays compact as the gallery grows. */
+        { pair:[
+            { img:'pictures/puja_paint.jpg', ar:0.824, alt:'A colorful painting by Puja' }
+          ], after:3, w:56, zoom:true, class:'puja-art',
+          cap:'some of puja&rsquo;s art' },
+
+        /* One compact four-image strip. */
         { pair:[
             { img:'pictures/puja_idol.jpg', ar:1.014, alt:'An idol photographed by Puja' },
             { img:'pictures/puja_ramen.jpg', ar:0.632, alt:'A bowl of ramen photographed by Puja' },
             { img:'pictures/puja_maps.jpg', ar:0.986, alt:'A map detail photographed by Puja' },
             { img:'pictures/manhole_cov.jpg', ar:1.266, alt:'A manhole cover photographed by Puja' }
           ], after:3, w:92, zoom:true, class:'puja-collection',
-          cap:'puja&rsquo;s collection of images' },
-
-        /* Puja's art stays a small gallery as it grows. Add future pieces to
-           this pair array rather than making separate full-size plates. */
-        { pair:[
-            { img:'pictures/puja_paint.jpg', ar:0.824, alt:'A colorful painting by Puja' }
-          ], after:3, w:56, zoom:true, class:'puja-art',
-          cap:'some of puja&rsquo;s art' }
+          cap:'puja&rsquo;s collection of images' }
       ]}
     },
     story:[
