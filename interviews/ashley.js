@@ -5,29 +5,30 @@ export default { slug:"ashley", named:true, name:"Ashley",
       kicker:'looking for',
       shout:'wildly new sources',
       plates:{ of:[
-        /* Renderings discussed in the mathematics / anonymization paragraph. */
+        /* Four ML visualizations, kept together as a 2×2 matrix. */
         { pair:[
-            { img:'pictures/render3.jpg', ar:1.250, alt:'Visualization from a face anonymization model' },
-            { img:'pictures/render4.jpg', ar:1.256, alt:'Visualization from a face anonymization model' }
-          ], after:8 },
-        { pair:[
-            { img:'pictures/render1.jpg', ar:1.031, alt:'Visualization from a face anonymization model' },
-            { img:'pictures/render2.jpg', ar:1.272, alt:'Visualization from a face anonymization model' }
-          ], after:8 },
+            { img:'pictures/render1.jpg', ar:1, alt:'Visualization from a face anonymization model' },
+            { img:'pictures/render2.jpg', ar:1, alt:'Visualization from a face anonymization model' },
+            { img:'pictures/render3.jpg', ar:1, alt:'Visualization from a face anonymization model' },
+            { img:'pictures/render4.jpg', ar:1, alt:'Visualization from a face anonymization model' }
+          ], after:8, w:94, zoom:true, class:'ml-renders matrix-2x2' },
 
-        /* Puja's art stays compact as the gallery grows. */
+        /* Puja's art: current painting plus the three new uploads. */
         { pair:[
-            { img:'pictures/puja_paint.jpg', ar:0.824, alt:'A colorful painting by Puja' }
-          ], after:3, w:36, zoom:true, class:'puja-art',
+            { img:'pictures/puja_paint.jpg', ar:1, alt:'Artwork by Puja' },
+            { img:'pictures/art1.jpg', ar:1, alt:'Artwork by Puja' },
+            { img:'pictures/art2.jpg', ar:1, alt:'Artwork by Puja' },
+            { img:'pictures/art3.jpg', ar:1, alt:'Artwork by Puja' }
+          ], after:3, w:88, zoom:true, class:'puja-art matrix-2x2',
           cap:'some of puja&rsquo;s art' },
 
-        /* One compact four-image strip. */
+        /* Puja's found-image collection, also one 2×2 matrix. */
         { pair:[
-            { img:'pictures/puja_idol.jpg', ar:1.014, alt:'An idol photographed by Puja' },
-            { img:'pictures/puja_ramen.jpg', ar:0.632, alt:'A bowl of ramen photographed by Puja' },
-            { img:'pictures/puja_maps.jpg', ar:0.986, alt:'A map detail photographed by Puja' },
-            { img:'pictures/manhole_cov.jpg', ar:1.266, alt:'A manhole cover photographed by Puja' }
-          ], after:3, w:74, zoom:true, class:'puja-collection',
+            { img:'pictures/puja_idol.jpg', ar:1, alt:'An idol photographed by Puja' },
+            { img:'pictures/puja_ramen.jpg', ar:1, alt:'A bowl of ramen photographed by Puja' },
+            { img:'pictures/puja_maps.jpg', ar:1, alt:'A map detail photographed by Puja' },
+            { img:'pictures/manhole_cov.jpg', ar:1, alt:'A manhole cover photographed by Puja' }
+          ], after:3, w:88, zoom:true, class:'puja-collection matrix-2x2',
           cap:'puja&rsquo;s collection of images' }
       ]}
     },
