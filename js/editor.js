@@ -22,16 +22,12 @@ export function createInterviewController({ app, byslug, esc, viewIndex }) {
   
   /* ---- keeping it ----------------------------------------------------
      Two layers, because the first one is not always there.
-  
-     1. the browser's own memory. Instant, but a browser opening a file
-        straight off the disk will often refuse it, and a preview pane
-        inside another app throws it away the moment it closes. So it is
-        TESTED, not assumed, and if it isn't working the page says so out
-        loud instead of pretending.
-  
-     2. `save this page`. Writes out a whole fresh copy of this file with
-        your edits already inside the writing itself. Nothing to paste,
-        nothing to trust. That one always works.
+
+     1. The browser's own memory keeps edits instantly when localStorage is
+        available.
+
+     2. `save interview file` downloads the current person's standalone
+        module, ready to replace interviews/<slug>.js in the repository.
      -------------------------------------------------------------------- */
   
   /* a real test: write something, read it back, take it away again */
@@ -96,10 +92,9 @@ export function createInterviewController({ app, byslug, esc, viewIndex }) {
     return JSON.parse(JSON.stringify(p.story || []));
   }
   
-  /* ---- save this page -------------------------------------------------
-     SOURCE is this file exactly as it was before anything was drawn — see
-     the bottom of the script. To save, we find this person's story in that
-     text, swap in what you've written, and hand the whole file back. */
+  /* ---- save interview file ---------------------------------------------
+     The editor serializes the current person's metadata plus edited story
+     into one standalone ES module. No other interview has to be rewritten. */
   /* Save the current interview as its own module. The site used to rewrite the
      whole HTML file, but interviews now live independently. Keeping the
      export self-contained means Cmd-E still works after the refactor. */
