@@ -848,6 +848,62 @@ export function createInterviewController({ app, byslug, esc, viewIndex }) {
     wireStory();
   }
   
+  function openImageViewer(im){
+    const src = im.dataset.fullSrc || im.getAttribute('src');
+    if(!src) return;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'image-lightbox';
+    overlay.setAttribute('role','dialog');
+    overlay.setAttribute('aria-modal','true');
+    overlay.setAttribute('aria-label','Full-size image viewer');
+
+    const panel = document.createElement('div');
+    panel.className = 'image-lightbox__panel';
+
+    const full = document.createElement('img');
+    full.className = 'image-lightbox__image';
+    full.src = src;
+    full.alt = im.alt || '';
+
+    const close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'image-lightbox__close';
+    close.setAttribute('aria-label','Close image viewer');
+    close.textContent = '×';
+
+    const original = document.createElement('a');
+    original.className = 'image-lightbox__original';
+    original.href = src;
+    original.target = '_blank';
+    original.rel = 'noopener';
+    original.textContent = 'open original / full resolution';
+
+    panel.append(close, full, original);
+    overlay.append(panel);
+    document.body.append(overlay);
+    document.body.classList.add('lightbox-open');
+
+    const shut = ()=>{
+      window.removeEventListener('keydown', onKey, true);
+      document.body.classList.remove('lightbox-open');
+      overlay.remove();
+      im.focus({preventScroll:true});
+    };
+    const onKey = e=>{
+      if(e.key === 'Escape'){
+        e.preventDefault();
+        e.stopPropagation();
+        shut();
+      }
+    };
+
+    close.addEventListener('click', shut);
+    overlay.addEventListener('click', e=>{ if(e.target === overlay) shut(); });
+    window.addEventListener('keydown', onKey, true);
+    close.focus();
+  }
+
   /* Everything that has to be hooked up after a redraw — the same for both
      layouts, so neither one can quietly lose the editor. */
   function wireStory(){
@@ -895,6 +951,16 @@ export function createInterviewController({ app, byslug, esc, viewIndex }) {
       });
     });
   
+    app.querySelectorAll('.zoomable-image').forEach(im=>{
+      im.addEventListener('click', ()=>openImageViewer(im));
+      im.addEventListener('keydown', e=>{
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openImageViewer(im);
+        }
+      });
+    });
+
     /* say so plainly if a photo isn't beside the file yet */
     app.querySelectorAll('.fig img').forEach(im=>{
       im.onerror = ()=>{
