@@ -11,9 +11,9 @@ rendering code should never contain interview prose.
 4. Add it to the exported `PEOPLE` array in the bouquet order you want.
 5. Put photographs in `/pictures/` and reference them as
    `pictures/<filename>`.
-6. Remove `soon:true` when the page is ready to publish.
-7. Add a homepage name link in `viewIndex()` inside `/js/app.js` if the
-   person should appear in the text index.
+6. Remove `soon:true` when the page is ready to publish. The homepage name
+   index is generated from these modules, so the name becomes clickable
+   automatically.
 
 The hidden Cmd-E editor now saves the current interview as `<slug>.js`, so an
 edited interview can replace only its matching module instead of replacing the
