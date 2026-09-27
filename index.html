@@ -2275,7 +2275,7 @@ function toolbar(){
     <button data-a="tiltr">tilt ↻</button>
     <button data-a="arrow">arrow</button>
     <i class="sep"></i>
-    <button data-a="savepage" class="t-go">save this page</button>
+    <button data-a="savepage" class="t-go">save interview file</button>
     <button data-a="copy">copy the code</button>
     <button data-a="revert">revert</button>
     <button data-a="done">done</button>
@@ -2283,9 +2283,9 @@ function toolbar(){
   </div>
   ${CAN_KEEP ? '' : `<p class="warn">This browser will not hold on to your
     writing between visits — nothing typed here is being kept on its own.
-    Press <b>save this page</b> before you close it and you get a whole new
-    copy of the file with your writing already inside it. Replace your old one
-    with it and everything is exactly where you left it.</p>`}`;
+    Press <b>save interview file</b> before you close it and you get a fresh
+    copy of this person’s module with your writing already inside it. Replace
+    the matching file in <code>interviews/</code> and everything stays modular.</p>`}`;
 }
 
 function wrapSel(cls){
