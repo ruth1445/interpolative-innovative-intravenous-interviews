@@ -23,7 +23,7 @@ export default { slug:"ashley", named:true, name:"Ashley",
         /* Puja's art stays compact as the gallery grows. */
         { pair:[
             { img:'pictures/puja_paint.jpg', ar:0.824, alt:'A colorful painting by Puja' }
-          ], after:3, w:56, zoom:true, class:'puja-art',
+          ], after:3, w:36, zoom:true, class:'puja-art',
           cap:'some of puja&rsquo;s art' },
 
         /* One compact four-image strip. */
@@ -32,7 +32,7 @@ export default { slug:"ashley", named:true, name:"Ashley",
             { img:'pictures/puja_ramen.jpg', ar:0.632, alt:'A bowl of ramen photographed by Puja' },
             { img:'pictures/puja_maps.jpg', ar:0.986, alt:'A map detail photographed by Puja' },
             { img:'pictures/manhole_cov.jpg', ar:1.266, alt:'A manhole cover photographed by Puja' }
-          ], after:3, w:92, zoom:true, class:'puja-collection',
+          ], after:3, w:74, zoom:true, class:'puja-collection',
           cap:'puja&rsquo;s collection of images' }
       ]}
     },
