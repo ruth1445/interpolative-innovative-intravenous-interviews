@@ -10,28 +10,28 @@ export default { slug:"ashley", named:true, name:"Ashley",
         { pair:[
             { img:'pictures/render3.jpg', ar:1.250, alt:'Accidental mathematical rendering made by a friend' },
             { img:'pictures/render4.jpg', ar:1.256, alt:'Accidental mathematical rendering made by a friend' }
-          ], after:6,
+          ], after:7,
           cap:'renderings made by a friend, by accident' },
         { pair:[
             { img:'pictures/render1.jpg', ar:1.031, alt:'Accidental mathematical rendering made by a friend' },
             { img:'pictures/render2.jpg', ar:1.272, alt:'Accidental mathematical rendering made by a friend' }
-          ], after:6 },
+          ], after:7 },
 
         /* Puja's noticing collection, followed by one of her paintings.
            These share an insertion point so they stay together as a little
            visual field note inside the Zach Lieberman paragraph. */
-        { img:'pictures/puja_paint.jpg', ar:0.824, after:3, w:82,
+        { img:'pictures/puja_paint.jpg', ar:0.824, after:3, w:68,
           alt:'A colorful painting by Puja',
-          cap:'one of puja&rsquo;s paintings' },
+          cap:'some of puja&rsquo;s art' },
         { pair:[
             { img:'pictures/puja_maps.jpg', ar:0.986, alt:'A map detail photographed by Puja' },
             { img:'pictures/manhole_cov.jpg', ar:1.266, alt:'A manhole cover photographed by Puja' }
-          ], after:3 },
+          ], after:3, w:76,
+          cap:'puja&rsquo;s collection of images' },
         { pair:[
             { img:'pictures/puja_idol.jpg', ar:1.014, alt:'An idol photographed by Puja' },
             { img:'pictures/puja_ramen.jpg', ar:0.632, alt:'A bowl of ramen photographed by Puja' }
-          ], after:3,
-          cap:'things puja stops to notice' }
+          ], after:3, w:76 }
       ]}
     },
     story:[
@@ -39,7 +39,9 @@ export default { slug:"ashley", named:true, name:"Ashley",
 
       { p:`It caught up with me recently. I hit a drain of inspiration so massive, I couldn’t create anything, even a to-do list. Not even my daily ritual of force feeding myself Substack articles could help me. I realized it might be time for me to look for wildly new sources of inspiration and wilder still, means of acquiring them. As a data scientist, I practice my craft religiously with the pattern that we are all given: data collection, data analysis, data visualization. After many such projects, I started to get fatigued; especially with the first step. Data collection is where you gather rows of numbers and letters and clean them. At the end of it, you have a bunch of squeaky clean CSV files at your disposal, ready to be worked on as you’d like. This is not a hard task. It is definitely a chore; but it is not a hard task. The easier digital data collection got, the more fed up I was with it. Perhaps I was craving a more traditional method of collecting data that would allow me to get my hands dirty.` },
 
-      { p:`I recently attended a demo that MIT professor <a href="http://zach.li/" target="_blank" rel="noopener">Zach Lieberman</a> gave, where he revealed he starts his classes by asking his students what they noticed around them that week. I thought of my friend Puja who would definitely be able to answer that question every week. <!-- photo-slot:puja-observations ramen/manhole/etc --> Puja will never admit it, but she is a wonderful artist whose paintings are creative, full of color and life. <!-- photo-slot:puja-paintings --> The only explanation for that kind of final product (besides practice) is the kind of things she stops to notice and fill her mind with. After all, the creative process does not begin from the moment you <a href="https://ardenyum.substack.com/i/194701210/1-idea-generation" target="_blank" rel="noopener">literally sit down to create</a>. As far as I can remember, I have always been something of an eclectic data scientist. I always stopped to take pictures, read labels, talk to people, ask them about their names and languages so I could either store it in my diary or just my mind, go to cultural grocery stores, and even listen to global rock and roll (my top 3 are German, Cambodian, and Egyptian). With all this information, I could not immediately do analysis in a traditional sense. But it did marinate in my mind and give me newer ideas and cultivate a sense of appreciation for everything around me.` },
+      { p:`I recently attended a demo that MIT professor <a href="http://zach.li/" target="_blank" rel="noopener">Zach Lieberman</a> gave, where he revealed he starts his classes by asking his students what they noticed around them that week. I thought of my friend Puja who would definitely be able to answer that question every week. <!-- photo-slot:puja-observations ramen/manhole/etc --> Puja will never admit it, but she is a wonderful artist whose paintings are creative, full of color and life. <!-- photo-slot:puja-paintings --> The only explanation for that kind of final product (besides practice) is the kind of things she stops to notice and fill her mind with. After all, the creative process does not begin from the moment you <a href="https://ardenyum.substack.com/i/194701210/1-idea-generation" target="_blank" rel="noopener">literally sit down to create</a>.` },
+
+      { p:`As far as I can remember, I have always been something of an eclectic data scientist. I always stopped to take pictures, read labels, talk to people, ask them about their names and languages so I could either store it in my diary or just my mind, go to cultural grocery stores, and even listen to global rock and roll (my top 3 are German, Cambodian, and Egyptian). With all this information, I could not immediately do analysis in a traditional sense. But it did marinate in my mind and give me newer ideas and cultivate a sense of appreciation for everything around me.` },
 
       { p:`This is why I enjoy so much to just sit with people for an hour at least and pick their brains, learn about their journeys. I told Ashley how I’ve participated in a lot of “interviews” that were just questions I had to fill in a google form. She reminded me of how the conversation would never go off tangent and hit new gold mines of thought just over a google form. I would soon come to realize that wildly new simply meant more physical/real life sources.` },
 
