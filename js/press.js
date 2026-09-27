@@ -79,7 +79,8 @@ export function createPressRenderer({ app, esc, figureHTML, captionHTML, FONTS }
             <img src="${esc(x.img)}" alt="${esc(x.alt||'')}" loading="lazy">
           </span>`;
       }).join('');
-      return `<figure class="plate-pair">
+      const style = p.w ? ` style="width:${p.w}%;margin-left:auto;margin-right:auto"` : '';
+      return `<figure class="plate-pair"${style}>
         <span class="pairrow">${shots}</span>
         ${p.cap ? `<figcaption class="paircap">${p.cap}</figcaption>` : ''}
       </figure>`;
