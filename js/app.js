@@ -382,9 +382,12 @@ function nameIndexHTML(){
     .filter(p => p.named)
     .slice()
     .sort((a,b) => (a.name || '').localeCompare(b.name || ''))
-    .map(p => p.soon
-      ? `<span class="name-oval soon" aria-disabled="true">${esc(p.name).toLowerCase()}</span>`
-      : `<a class="name-oval" href="#/p/${esc(p.slug)}">${esc(p.name).toLowerCase()}</a>`)
+    .map(p => {
+      const name = p.indexName || p.name || '';
+      return p.soon
+        ? `<span class="name-oval soon" aria-disabled="true">${esc(name).toLowerCase()}</span>`
+        : `<a class="name-oval" href="#/p/${esc(p.slug)}">${esc(name).toLowerCase()}</a>`;
+    })
     .join('\n        ');
 }
 
