@@ -2,12 +2,10 @@ import { PEOPLE } from '../interviews/index.js';
 import { createInterviewController } from './editor.js';
 
 /* ==================================================================
-   ▓  YOUR DATA  ▓
-   Copy a block to add a person. Everything else builds itself —
-   the doodle rows and the next/prev links.
-   qa[] is just question/answer pairs, in the order they were asked —
-   free-form, since every conversation goes its own way.
-   qa[].pull  = true  blows that answer up as a pull quote.
+   ▓  CONTENT  ▓
+   Interview records live in /interviews/. This file owns the homepage,
+   bouquet, search, and routing only. See /interviews/README.md when
+   adding a new person.
    ================================================================== */
 
 const SITE = {
