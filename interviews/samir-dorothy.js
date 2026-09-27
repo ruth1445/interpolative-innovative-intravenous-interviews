@@ -1,5 +1,5 @@
 /* Interview/profile data for samir-dorothy. Keep presentation logic in js/, not here. */
-export default { slug:"samir-dorothy", named:true, name:"Samir and Dorothy",
+export default { slug:"samir-dorothy", named:true, name:"Samir and Dorothy", indexName:"Samir & Dorothy",
     shape:"ranunculus", colour:9,
     press:{
       kicker:'',
