@@ -45,7 +45,7 @@ export default { slug:"ashley", named:true, name:"Ashley",
 
       { p:`Ashley has always been among the first of my followers on Twitter, Substack, Instagram, Wattpad, and any other platform I ever had a digital presence on. We grew up in the digital age and now we’re trying to detach ourselves from it. She recently watched a girl walk down the aisle (on Instagram) after having only ever seen her walk down the hallways of her college one time. She remarked on how pointless it felt to follow updates of people she, quite frankly, doesn’t even care about.` },
 
-      { p:`<strong><em>“Why do I need to know everyone’s life updates? And recently, everyone and their mother has been creating 80s pictures of themselves. Why do I need to subject myself to that? In an effort to bring people closer, we’ve actually isolated ourselves so much to the point that we are very disconnected from reality.”</em></strong>`, class:'ashley-pullquote' },
+      { p:`<strong><em>“Everyone and their mother has been posting how they'd look in the 80s. Why do I need to subject myself to that? In an effort to bring people closer, we’ve actually isolated ourselves so much to the point that we are very disconnected from reality.”</em></strong>`, class:'ashley-pullquote' },
 
       { p:`Ashley, who holds degrees in neuroscience and cognitive science, believes that this is what prompts people to partake in mindless trends. Perhaps we’re so unconnected that participating in such absurd fads gives us a twisted sense of community. I brought up how I am also trying to detach myself from the digital aspects of my career, which sounded silly to me until I met several other people who also felt the same way, especially if they were creatives in tech.` },
 
