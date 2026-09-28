@@ -717,6 +717,10 @@ a{color:inherit;text-decoration:none}
   color:var(--press-red);
   text-transform:none;
   font-weight:700;
+  font-size:clamp(40px,6.1vw,82px);
+  line-height:.9;
+  letter-spacing:-.018em;
+  word-spacing:.12em;
 }
 /* Let the general press drop-cap rule supply the exact same press red. */
 .ashley-press .cols a[href]{
