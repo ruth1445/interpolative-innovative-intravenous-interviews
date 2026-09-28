@@ -27,8 +27,8 @@ export default { slug:"ashley", named:true, name:"Ashley",
             { img:'pictures/puja_idol.jpg', ar:1, alt:'An idol photographed by Puja' },
             { img:'pictures/puja_ramen.jpg', ar:1, alt:'A bowl of ramen photographed by Puja' },
             { img:'pictures/puja_maps.jpg', ar:1, alt:'A map detail photographed by Puja' },
-            { img:'pictures/manhole_cov.jpg', ar:1, alt:'A manhole cover photographed by Puja' }
-          ], after:3, w:88, zoom:true, class:'puja-collection matrix-2x2',
+            { img:'pictures/manhole_updated.jpg', ar:1, alt:'A manhole cover photographed by Puja' }
+          ], after:3, w:96, zoom:true, class:'puja-collection matrix-2x2',
           cap:'puja&rsquo;s collection of images' }
       ]}
     },
