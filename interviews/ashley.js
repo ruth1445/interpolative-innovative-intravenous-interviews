@@ -11,7 +11,7 @@ export default { slug:"ashley", named:true, name:"Ashley",
             { img:'pictures/render2.jpg', ar:1, alt:'Visualization from a face anonymization model' },
             { img:'pictures/render1.jpg', ar:1, alt:'Visualization from a face anonymization model' },
             { img:'pictures/render4.jpg', ar:1, alt:'Visualization from a face anonymization model' }
-          ], after:8, w:94, zoom:true, class:'ml-renders matrix-2x2' },
+          ], after:10, w:94, zoom:true, class:'ml-renders matrix-2x2' },
 
         /* Puja's art: current painting plus the three new uploads. */
         { pair:[
