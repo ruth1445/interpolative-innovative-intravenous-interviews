@@ -18,7 +18,7 @@ export default { slug:"ashley", named:true, name:"Ashley",
             { img:'pictures/puja_paint.jpg', ar:1, alt:'Artwork by Puja' },
             { img:'pictures/art1.jpg', ar:1, alt:'Artwork by Puja' },
             { img:'pictures/art2.jpg', ar:1, alt:'Artwork by Puja' },
-            { img:'pictures/art3.jpg', ar:1, alt:'Artwork by Puja' }
+            { img:'pictures/poj.jpg', ar:1, alt:'Artwork by Puja' }
           ], after:3, w:88, zoom:true, class:'puja-art matrix-2x2',
           cap:'some of puja&rsquo;s art' },
 
