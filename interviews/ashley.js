@@ -3,7 +3,7 @@ export default { slug:"ashley", named:true, name:"Ashley",
     shape:"cosmos", colour:13,
     press:{
       kicker:'in pursuit of',
-      shout:'Physical Data Science',
+      shout:'PHYSICAL DATA SCIENCE',
       plates:{ of:[
         /* Four ML visualizations, kept together as a 2×2 matrix. */
         { pair:[
