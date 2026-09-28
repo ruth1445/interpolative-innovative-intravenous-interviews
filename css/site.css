@@ -1227,6 +1227,18 @@ a{color:inherit;text-decoration:none}
   margin-top:.65em;
   margin-bottom:1.05em;
 }
+
+/* Do not let column balancing strand the first Puja gallery at the bottom
+   of a column with a large blank beneath it. The following paragraph may
+   split normally, but its first lines stay with the gallery. */
+.press.ashley-press .puja-collection{
+  break-after:avoid-column;
+  page-break-after:avoid;
+}
+.press.ashley-press .puja-collection + p{
+  break-before:avoid-column;
+  page-break-before:avoid;
+}
 .press.ashley-press .matrix-2x2 .pairrow{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
