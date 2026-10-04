@@ -8,7 +8,15 @@ export default {
 
   press:{
     kicker:"",
-    shout:"Jerry Bartolino"
+    shout:"Jerry Bartolino",
+    plates:{ of:[
+      { img:'pictures/AC.jpg', ar:1.25, after:3, w:88,
+        alt:'New York City at night',
+        cap:'NYC at night' },
+      { img:'pictures/AB.jpg', ar:1.25, after:4, w:88,
+        alt:'Men playing chess in Chinatown, Manhattan',
+        cap:'Uncles playing a game of chess in Chinatown, Manhattan' }
+    ]}
   },
 
   story:[
