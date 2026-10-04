@@ -7,8 +7,8 @@ export default {
   colour:5,
 
   press:{
-    kicker:"",
-    shout:"Jerry Bartolino",
+    kicker:'&ldquo;I could listen to',
+    shout:'American Pie forever&rdquo;',
     plates:{ of:[
       { img:'pictures/AC.jpg', ar:1.25, after:3, w:88,
         alt:'New York City at night',
