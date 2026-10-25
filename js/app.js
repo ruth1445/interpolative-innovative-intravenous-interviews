@@ -386,7 +386,7 @@ function nameIndexHTML(){
       const name = p.indexName || p.name || '';
       return p.soon
         ? `<span class="name-oval soon" aria-disabled="true">${esc(name).toLowerCase()}</span>`
-        : `<a class="name-oval" href="#/p/${esc(p.slug)}">${esc(name).toLowerCase()}</a>`;
+        : `<a class="name-oval" href="${p.shortPath ? '/' + esc(p.shortPath) : '#/p/' + esc(p.slug)}">${esc(name).toLowerCase()}</a>`;
     })
     .join('\n        ');
 }
@@ -452,7 +452,7 @@ function viewIndex(){
     const firstPublished = ovals.find(el =>
       !el.hidden && el.matches('a.name-oval[href]')
     );
-    if(firstPublished) location.hash = firstPublished.getAttribute('href');
+    if(firstPublished) location.assign(firstPublished.getAttribute('href'));
   };
 }
 
@@ -461,8 +461,14 @@ const interview = createInterviewController({ app, byslug, esc, viewIndex });
 /* ---------- ROUTER ---------- */
 function route(){
   const h = location.hash.replace(/^#\/?/,'');
-  if(h.startsWith('p/'))    interview.viewPerson(h.slice(2));
-  else                      viewIndex();
+  if(h.startsWith('p/')){ interview.viewPerson(h.slice(2)); return; }
+  if(location.hash === '#/'){ viewIndex(); return; }
+
+  const path = location.pathname.replace(/^\/+|\/+$/g,'');
+  const clean = PEOPLE.find(p => p.shortPath === path);
+  if(clean){ interview.viewPerson(clean.slug); return; }
+
+  viewIndex();
 }
 document.addEventListener('keydown', e=>{
   if(e.key !== 'Escape') return;
