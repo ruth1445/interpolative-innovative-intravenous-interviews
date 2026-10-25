@@ -176,7 +176,7 @@ export function createPressRenderer({ app, esc, figureHTML, captionHTML, FONTS }
     
       return `<article class="press${p.slug==='anita-wong' ? ' anita-press' : ''}${p.slug==='ashley' ? ' ashley-press' : ''}${p.slug==='adhiv-dhar' ? ' adhiv-press' : ''}">
         <div class="sheet">
-          <a href="#/" class="back">back to the index</a>
+          <a href="/" class="back">back to the index</a>
           <div class="top">
             <header>
               <p class="kicker">${H.kicker || ''}</p>
