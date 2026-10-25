@@ -1,4 +1,4 @@
-import { createPressRenderer } from './press.js?v=20260927b';
+import { createPressRenderer } from './press.js?v=20261024f';
 
 /* Interview pages, their in-browser editor, and the page-level rendering
    machinery live here. The homepage/bouquet stays in app.js. */
