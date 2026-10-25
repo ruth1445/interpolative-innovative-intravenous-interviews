@@ -1,5 +1,5 @@
 import placeholders from './placeholders.js?v=20260927b';
-import adhivDhar from './adhiv-dhar.js?v=20261024d';
+import adhivDhar from './adhiv-dhar.js?v=20261024e';
 import ashley from './ashley.js?v=20260928i';
 import tejas from './tejas.js?v=20260927b';
 import larry from './larry.js?v=20260927b';
