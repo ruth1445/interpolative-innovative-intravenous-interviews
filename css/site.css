@@ -1377,7 +1377,7 @@ body.lightbox-open{overflow:hidden}
   width:88%;
   max-width:none !important;
   box-sizing:border-box;
-  margin:1.05em auto 1.15em !important;
+  margin:1em auto 1.1em !important;
   padding:1.05em 0 1.1em;
   border-top:1px solid rgba(18,17,12,.72);
   border-bottom:1px solid rgba(18,17,12,.72);
@@ -1385,15 +1385,14 @@ body.lightbox-open{overflow:hidden}
   border-right:0;
   background:transparent;
   color:var(--ink);
-  font-family:var(--ui);
-  font-size:clamp(11px,.82vw,13px);
+  font-family:var(--press);
+  font-size:clamp(13px,.95vw,16px);
   font-style:normal;
-  font-weight:600;
-  line-height:1.75;
-  letter-spacing:.15em;
+  font-weight:400;
+  line-height:1.7;
+  letter-spacing:.09em;
   text-transform:uppercase;
-  text-align:justify;
-  text-align-last:left;
+  text-align:center;
   hyphens:none;
   text-wrap:pretty;
   break-inside:avoid;
@@ -1431,13 +1430,12 @@ body.lightbox-open{overflow:hidden}
   .press.adhiv-press .cols p.adhiv-quote{
     width:90%;
     max-width:none !important;
-    margin:1em auto 1.1em !important;
-    padding:1em 0 1.05em;
-    font-size:11.5px;
-    line-height:1.72;
-    letter-spacing:.14em;
-    text-align:justify;
-    text-align-last:left;
+    margin:.95em auto 1.05em !important;
+    padding:.95em 0 1em;
+    font-size:14px;
+    line-height:1.68;
+    letter-spacing:.08em;
+    text-align:center;
   }
 }
 @media(max-width:420px){
