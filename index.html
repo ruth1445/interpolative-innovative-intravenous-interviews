@@ -14,6 +14,9 @@
   if(u.searchParams.get('build')!==BUILD){
     u.searchParams.set('build',BUILD);
     window.location.replace(u.href);
+  } else {
+    u.searchParams.delete('build');
+    window.history.replaceState(null,'',u.pathname + (u.search ? u.search : '') + u.hash);
   }
 })();
 </script>
