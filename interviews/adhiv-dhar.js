@@ -12,8 +12,6 @@ export default {
   },
 
   story:[
-    { class:"adhiv-part", p:`part a.` },
-
     { p:`Not long ago, I started to become very aware of how young I am. I have the luxury of experimenting all I want. My responsibilities are few and I have the time and legs to go anywhere. But such epiphanies rarely arrive without plenty of questions. Am I using this freedom optimally? What are my peers investing it in? And so, I ask other people about their lives to understand how I might build my own. I do not hesitate to bother people around me when I want to borrow a pen or ask for the time. Why should I hesitate for the bigger questions?` },
 
     { p:`About a month ago, I asked <a href="https://adhiv.com/" target="_blank" rel="noopener">Adhiv Dhar</a> several questions about himself and his craft. I want to begin with something delightful from his personal website:` },
@@ -24,7 +22,7 @@ export default {
 
     { p:`I wondered if the frenzied state he wrote of was a frequent experience for him or if it was the cumulation of years of building and experimenting. He believes experiences definitely bleed into each other and he is always pulling from media he’s consumed, projects that he’s done in the past, and stuff he used to be interested in. It seems to me like he has absorbed the best parts of each phase of his life and is now a very beautiful mosaic of it all. In Adhiv’s words, he has come to “develop a taste for building and trying [his] own things”. I cannot imagine an eclectic life producing anything less than an insatiable hunger to create. The passion and desire you put into life, it injects back into you. You will then direct this passion into your work and thus, into the world. I am no seer but I suspect the cycle will likely continue as long as you persevere.` },
 
-    { class:"adhiv-part", p:`part b.` },
+    { class:"adhiv-divider", p:`` },
 
     { p:`Now and then, these specific words from Paul Graham ring in my head. Some days they are words of consolation or encouragement. Most days they are words of caution.` },
 
@@ -32,7 +30,7 @@ export default {
 
     { p:`For me, making the most of my youth means trying as many things as possible, and learning things I have no reason to learn in depths I have no business going to. Adhiv was an engineer for a huge chunk of his life and recalls from his time at Twitter that he knew he did not want to keep doing this. After Twitter, he found himself at a crossroads needing to choose between taking the safe path or the unconventional path. He worked as a barista at his local cafe before pursuing music production full time as he has been for the last 5 years. He loves nothing more than making music. Nothing compares to the joy it brings him. Just after quitting his barista job, he recalls feeling the most creative he’d ever been as he constantly made music and expressed himself while not adhering to any expectations.` },
 
-    { class:"adhiv-part", p:`part c.` },
+    { class:"adhiv-divider", p:`` },
 
     { p:`Towards the end, Adhiv expressed his desire to go back and see where his head was when he was younger and what things he was once consumed by. For a week before the conversation, my mind was whizzing with thoughts about growth. I struggled to recollect the speed and nature of my own growth. I wanted to believe in exponential growth but did not have the proof to convince myself. It was laborious to even try and remember what I was like just 5 months ago. I had not thought of visualizing my progress till I read an excerpt from an essay that Adhiv wrote.` },
 
