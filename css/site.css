@@ -1316,7 +1316,7 @@ body.lightbox-open{overflow:hidden}
 
 
 
-/* Adhiv Dhar: strong title, generous section breaks, integrated quotes. */
+/* Adhiv Dhar: strong title, true section spacing, integrated quotes. */
 .adhiv-press .kicker{
   font-family:'Coal Hand Luke',var(--script);
   color:#000;
@@ -1328,24 +1328,38 @@ body.lightbox-open{overflow:hidden}
   color:var(--press-red);
   text-transform:uppercase;
   font-weight:700;
-  font-size:clamp(34px,5.2vw,68px);
-  line-height:.92;
-  letter-spacing:-.028em;
-  word-spacing:.035em;
+  font-size:clamp(40px,6.35vw,86px);
+  line-height:.9;
+  letter-spacing:-.034em;
+  word-spacing:.025em;
   white-space:nowrap;
+  width:max-content;
+  max-width:100%;
 }
 
 .press.adhiv-press .cols p:has(+ .adhiv-divider){
-  margin-bottom:0;
+  margin-bottom:0 !important;
 }
 .press.adhiv-press .cols p.adhiv-divider{
+  position:relative;
   display:block;
+  width:100%;
+  height:6.4em;
+  margin:0 !important;
+  padding:0 !important;
+  border:0;
+  font-size:inherit;
+  line-height:1;
+  break-inside:avoid;
+}
+.press.adhiv-press .cols p.adhiv-divider::before{
+  content:"";
+  position:absolute;
+  left:24%;
+  top:50%;
   width:52%;
-  height:0;
-  margin:3em auto;
   border-top:1px solid var(--press-red);
-  font-size:0;
-  line-height:0;
+  transform:translateY(-.5px);
 }
 .press.adhiv-press .cols p.adhiv-divider::first-letter{
   float:none;
@@ -1353,11 +1367,14 @@ body.lightbox-open{overflow:hidden}
   margin:0;
   color:inherit;
 }
+.press.adhiv-press .cols p.adhiv-divider + p{
+  margin-top:0 !important;
+}
 
 .press.adhiv-press .cols p.adhiv-quote{
   position:relative;
   max-width:96%;
-  margin:.62em auto .82em;
+  margin:.7em auto .9em;
   padding:0 .18em;
   border:0;
   background:transparent;
@@ -1367,7 +1384,7 @@ body.lightbox-open{overflow:hidden}
   font-style:italic;
   font-weight:700;
   line-height:1.5;
-  text-align:left;
+  text-align:center;
   hyphens:auto;
   text-wrap:pretty;
   break-inside:avoid;
@@ -1393,30 +1410,36 @@ body.lightbox-open{overflow:hidden}
 
 @media(max-width:900px){
   .adhiv-press .shout{
-    font-size:clamp(22px,5.8vw,32px);
-    line-height:.96;
-    letter-spacing:-.032em;
+    font-size:clamp(24px,6.65vw,36px);
+    line-height:.94;
+    letter-spacing:-.038em;
     white-space:nowrap;
+    width:max-content;
+    max-width:100%;
   }
   .adhiv-press .kicker{
     font-size:clamp(22px,6.2vw,34px);
   }
   .press.adhiv-press .cols p.adhiv-divider{
+    height:6.8em;
+  }
+  .press.adhiv-press .cols p.adhiv-divider::before{
+    left:25%;
     width:50%;
-    margin:3.1em auto;
   }
   .press.adhiv-press .cols p.adhiv-quote{
     max-width:98%;
-    margin:.66em auto .86em;
+    margin:.72em auto .92em;
     padding:0 .1em;
     font-size:15px;
     line-height:1.52;
+    text-align:center;
   }
 }
 @media(max-width:420px){
   .adhiv-press .shout{
-    font-size:20px;
-    letter-spacing:-.038em;
+    font-size:clamp(20px,6.25vw,27px);
+    letter-spacing:-.04em;
   }
 }
 
