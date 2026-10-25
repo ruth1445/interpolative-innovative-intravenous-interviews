@@ -1,5 +1,5 @@
-import { PEOPLE } from '../interviews/index.js?v=20261024e';
-import { createInterviewController } from './editor.js?v=20260927b';
+import { PEOPLE } from '../interviews/index.js?v=20261024f';
+import { createInterviewController } from './editor.js?v=20261024f';
 
 /* ==================================================================
    ▓  CONTENT  ▓
