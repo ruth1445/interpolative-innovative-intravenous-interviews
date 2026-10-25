@@ -174,7 +174,7 @@ export function createPressRenderer({ app, esc, figureHTML, captionHTML, FONTS }
          It now sits inside the flow like any other figure. */
       const body = `<div class="story cols">${pieces.join('')}</div>`;
     
-      return `<article class="press${p.slug==='anita-wong' ? ' anita-press' : ''}${p.slug==='ashley' ? ' ashley-press' : ''}">
+      return `<article class="press${p.slug==='anita-wong' ? ' anita-press' : ''}${p.slug==='ashley' ? ' ashley-press' : ''}${p.slug==='adhiv-dhar' ? ' adhiv-press' : ''}">
         <div class="sheet">
           <a href="#/" class="back">back to the index</a>
           <div class="top">
