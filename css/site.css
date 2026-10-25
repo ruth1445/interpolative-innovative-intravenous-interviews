@@ -1373,8 +1373,11 @@ body.lightbox-open{overflow:hidden}
 
 .press.adhiv-press .cols p.adhiv-quote{
   position:relative;
-  max-width:88%;
-  margin:1.05em auto 1.15em;
+  display:block;
+  width:88%;
+  max-width:none !important;
+  box-sizing:border-box;
+  margin:1.05em auto 1.15em !important;
   padding:1.05em 0 1.1em;
   border-top:1px solid rgba(18,17,12,.72);
   border-bottom:1px solid rgba(18,17,12,.72);
@@ -1389,7 +1392,8 @@ body.lightbox-open{overflow:hidden}
   line-height:1.75;
   letter-spacing:.15em;
   text-transform:uppercase;
-  text-align:left;
+  text-align:justify;
+  text-align-last:left;
   hyphens:none;
   text-wrap:pretty;
   break-inside:avoid;
@@ -1425,12 +1429,15 @@ body.lightbox-open{overflow:hidden}
     width:50%;
   }
   .press.adhiv-press .cols p.adhiv-quote{
-    max-width:90%;
-    margin:1em auto 1.1em;
+    width:90%;
+    max-width:none !important;
+    margin:1em auto 1.1em !important;
     padding:1em 0 1.05em;
     font-size:11.5px;
     line-height:1.72;
     letter-spacing:.14em;
+    text-align:justify;
+    text-align-last:left;
   }
 }
 @media(max-width:420px){
