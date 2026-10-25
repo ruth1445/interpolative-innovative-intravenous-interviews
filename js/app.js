@@ -496,7 +496,11 @@ window.addEventListener('hashchange', route);
 let rt;
 window.addEventListener('resize', ()=>{
   clearTimeout(rt);
-  rt = setTimeout(()=>{ if(!location.hash.replace(/^#\/?/,'')) viewIndex(); }, 180);
+  rt = setTimeout(()=>{
+    const h = location.hash.replace(/^#\/?/,'');
+    const path = location.pathname.replace(/^\/+|\/+$/g,'');
+    if(!h && !path) viewIndex();
+  }, 180);
 });
 
 route();
