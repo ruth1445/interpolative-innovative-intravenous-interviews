@@ -1,6 +1,7 @@
 /* Interview/profile data for Adhiv Dhar. Keep presentation logic in js/, not here. */
 export default {
   slug:"adhiv-dhar",
+  shortPath:"adhiv",
   named:true,
   name:"Adhiv Dhar",
   shape:"ranunculus",
