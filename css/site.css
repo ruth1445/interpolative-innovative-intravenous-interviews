@@ -1407,19 +1407,7 @@ body.lightbox-open{overflow:hidden}
   text-wrap:pretty;
   break-inside:avoid;
 }
-.press.adhiv-press .cols p.adhiv-quote::before{
-  content:"“";
-  position:absolute;
-  left:.08em;
-  top:-.12em;
-  color:rgba(184,36,42,.16);
-  font-family:var(--press);
-  font-size:5.4em;
-  font-style:normal;
-  font-weight:700;
-  line-height:1;
-  pointer-events:none;
-}
+.press.adhiv-press .cols p.adhiv-quote::before,
 .press.adhiv-press .cols p.adhiv-quote::after{
   content:none;
 }
@@ -1462,11 +1450,6 @@ body.lightbox-open{overflow:hidden}
     padding:1em 1em 1.03em 1.08em;
     font-size:15.5px;
     line-height:1.58;
-  }
-  .press.adhiv-press .cols p.adhiv-quote::before{
-    left:.06em;
-    top:-.13em;
-    font-size:4.8em;
   }
 }
 @media(max-width:420px){
