@@ -7,8 +7,8 @@ export default {
   colour:11,
 
   press:{
-    kicker:"",
-    shout:"Adhiv Dhar"
+    kicker:"how do I set up my life",
+    shout:"so I can keep creating?"
   },
 
   story:[
