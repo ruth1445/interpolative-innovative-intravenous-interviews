@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function(){
+  var BUILD='20261024r';
+  window.__SITE_BUILD__=BUILD;
+  var u=new URL(window.location.href);
+  if(u.searchParams.get('build')!==BUILD){
+    u.searchParams.set('build',BUILD);
+    window.location.replace(u.href);
+  } else {
+    u.searchParams.delete('build');
+    window.history.replaceState(null,'',u.pathname + (u.search ? u.search : '') + u.hash);
+  }
+})();
+</script>
+<base href="/">
+<title>lessons</title>
+<link rel="icon" type="image/jpeg" href="pictures/favicon.jpg?v=3">
+<link rel="shortcut icon" href="pictures/favicon.jpg?v=3">
+<link rel="apple-touch-icon" href="pictures/favicon.jpg?v=3">
+
+<link rel="stylesheet" href="css/fonts.css?v=20260927b">
+<link rel="stylesheet" href="css/site.css?v=20261024r">
+<!-- deploy: jerry-bartolino-20261004b -->
+</head>
+<body>
+
+<main id="app"></main>
+
+<script type="module">import('./js/app.js?v=20261024r');</script>
+<script>
+(function(){
+  function ensureJerry(){
+    var nav=document.querySelector('.name-index');
+    if(!nav) return false;
+    if(nav.querySelector('a[href="#/p/jerry-bartolino"]')) return true;
+    var a=document.createElement('a');
+    a.className='name-oval';
+    a.href='#/p/jerry-bartolino';
+    a.textContent='jerry bartolino';
+    var items=[].slice.call(nav.children);
+    var before=items.find(function(el){
+      return el.textContent.trim().localeCompare('jerry bartolino')>0;
+    });
+    nav.insertBefore(a,before||null);
+    return true;
+  }
+  var tries=0;
+  var timer=setInterval(function(){
+    tries++;
+    if(ensureJerry() || tries>40) clearInterval(timer);
+  },100);
+})();
+</script>
+</body>
+</html>
