@@ -1316,38 +1316,20 @@ body.lightbox-open{overflow:hidden}
 
 
 
-/* Adhiv Dhar: quiet section markers and compact quoted passages inside the
-   newspaper flow. Keep the opening drop cap on the first actual paragraph,
-   not on "part a." */
-.press .cols p.adhiv-part{
-  margin:.2em 0 .55em;
-  font-family:var(--ui);
-  font-size:10.8px;
-  font-weight:700;
-  line-height:1.2;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--press-red);
-  text-align:left;
-  break-after:avoid-column;
+/* Adhiv Dhar: quiet structural rules and compact quoted passages. */
+.press .cols p.adhiv-divider{
+  display:block;
+  height:0;
+  margin:1.15em 0 1.25em;
+  border-top:1px solid rgba(120,96,58,.42);
+  font-size:0;
+  line-height:0;
 }
-.press .cols p.adhiv-part:first-of-type::first-letter{
+.press .cols p.adhiv-divider::first-letter{
   float:none;
-  font-family:inherit;
-  font-weight:inherit;
-  font-size:inherit;
-  line-height:inherit;
+  font:inherit;
   margin:0;
   color:inherit;
-}
-.press .cols p.adhiv-part:first-child + p::first-letter{
-  float:left;
-  font-family:var(--shout);
-  font-weight:700;
-  font-size:4.85em;
-  line-height:.735;
-  margin:.02em .09em -.04em 0;
-  color:var(--press-red);
 }
 .press .cols p.adhiv-quote{
   margin:.28em 0 .9em;
