@@ -1316,7 +1316,7 @@ body.lightbox-open{overflow:hidden}
 
 
 
-/* Adhiv Dhar: strong title, true section spacing, integrated quotes. */
+/* Adhiv Dhar: strong title, restrained section spacing, editorial quotes. */
 .adhiv-press .kicker{
   font-family:'Coal Hand Luke',var(--script);
   color:#000;
@@ -1344,7 +1344,7 @@ body.lightbox-open{overflow:hidden}
   position:relative;
   display:block;
   width:100%;
-  height:3.8em;
+  height:2.6em;
   margin:0 !important;
   padding:0 !important;
   border:0;
@@ -1373,39 +1373,36 @@ body.lightbox-open{overflow:hidden}
 
 .press.adhiv-press .cols p.adhiv-quote{
   position:relative;
-  max-width:96%;
-  margin:.7em auto .9em;
-  padding:0 .18em;
-  border:0;
+  max-width:88%;
+  margin:1.05em auto 1.15em;
+  padding:1.05em 0 1.1em;
+  border-top:1px solid rgba(18,17,12,.72);
+  border-bottom:1px solid rgba(18,17,12,.72);
+  border-left:0;
+  border-right:0;
   background:transparent;
-  color:var(--press-red);
-  font-family:var(--press);
-  font-size:clamp(13px,1.02vw,15px);
-  font-style:italic;
-  font-weight:700;
-  line-height:1.5;
-  text-align:center;
-  hyphens:auto;
+  color:var(--ink);
+  font-family:var(--ui);
+  font-size:clamp(11px,.82vw,13px);
+  font-style:normal;
+  font-weight:600;
+  line-height:1.75;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  text-align:left;
+  hyphens:none;
   text-wrap:pretty;
   break-inside:avoid;
 }
-.press.adhiv-press .cols p.adhiv-quote::before{
-  content:"“";
-  position:static;
-  color:inherit;
-  font:inherit;
-}
+.press.adhiv-press .cols p.adhiv-quote::before,
 .press.adhiv-press .cols p.adhiv-quote::after{
-  content:"”";
-  position:static;
-  color:inherit;
-  font:inherit;
+  content:none;
 }
 .press.adhiv-press .cols p.adhiv-quote em{
   color:inherit;
   font:inherit;
-  font-style:italic;
-  font-weight:700;
+  font-style:normal;
+  font-weight:inherit;
 }
 
 @media(max-width:900px){
@@ -1421,19 +1418,19 @@ body.lightbox-open{overflow:hidden}
     font-size:clamp(22px,6.2vw,34px);
   }
   .press.adhiv-press .cols p.adhiv-divider{
-    height:4em;
+    height:2.8em;
   }
   .press.adhiv-press .cols p.adhiv-divider::before{
     left:25%;
     width:50%;
   }
   .press.adhiv-press .cols p.adhiv-quote{
-    max-width:98%;
-    margin:.72em auto .92em;
-    padding:0 .1em;
-    font-size:15px;
-    line-height:1.52;
-    text-align:center;
+    max-width:90%;
+    margin:1em auto 1.1em;
+    padding:1em 0 1.05em;
+    font-size:11.5px;
+    line-height:1.72;
+    letter-spacing:.14em;
   }
 }
 @media(max-width:420px){
@@ -1442,4 +1439,3 @@ body.lightbox-open{overflow:hidden}
     letter-spacing:-.04em;
   }
 }
-
