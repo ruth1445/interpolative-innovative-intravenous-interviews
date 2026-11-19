@@ -2,17 +2,18 @@
 // "Known since" is a conservative practical milestone, not a claim that
 // every precursor or concept was unknown until that exact year.
 const ERAS = [
-  { id:"old", label:"16th–19th centuries", year:1750, note:"A visitor from 1750. The broad era uses 1750 as its fixed reference year." },
-  { id:"early", label:"Early 20th century", year:1920, note:"Imagine your listener lives in 1920." },
-  { id:"50s", label:"1950s", year:1955, note:"Imagine your listener lives in 1955." },
-  { id:"60s", label:"1960s", year:1965, note:"Imagine your listener lives in 1965." },
-  { id:"70s", label:"1970s", year:1975, note:"Imagine your listener lives in 1975." },
-  { id:"80s", label:"1980s", year:1985, note:"Imagine your listener lives in 1985." }
+  { id:"17th", label:"17th century", year:1650, note:"You are talking to someone in the year 1650." },
+  { id:"early", label:"Early 20th century", year:1920, note:"You are talking to someone in the year 1920." },
+  { id:"50s", label:"1950s", year:1955, note:"You are talking to someone in the year 1955." },
+  { id:"60s", label:"1960s", year:1965, note:"You are talking to someone in the year 1965." },
+  { id:"70s", label:"1970s", year:1975, note:"You are talking to someone in the year 1975." },
+  { id:"80s", label:"1980s", year:1985, note:"You are talking to someone in the year 1985." },
+  { id:"90s", label:"1990s", year:1995, note:"You are talking to someone in the year 1995." }
 ];
 
 // Each "concept" is part of the non-AI answer sheet. Matched words are
 // *prompts for human review*, not a reliable semantic correctness score.
-// Replace image URLs with photos when they arrive. If missing, placeholders display.
+// Each prompt uses one of the supplied photographs in a compact 4 x 4 atlas.
 const ITEMS = [
   {
     id:"stanley", name:"Stanley tumbler", lead:"what a", knownSince:2016,
@@ -47,7 +48,7 @@ const ITEMS = [
     }
   },
   {
-    id:"six-seven", name:"6–7", lead:"what", knownSince:2025,
+    id:"six-seven", name:"6–7 meme", lead:"what the", knownSince:2025,
     concepts:[
       {label:"a repeated joke or catchphrase", words:["joke","phrase","saying","chant","catchphrase","repeated","shout","nonsense","meme"]},
       {label:"spread by young people and online videos", words:["children","kids","teen","young","school","video","recording","internet","online","share","social"]},
@@ -171,6 +172,53 @@ const ITEMS = [
     samples:{
       old:"Imagine a theatre where instead of living actors, a bright lantern projects many pictures in rapid succession onto a large cloth. The figures seem to move and perform an entire story, which the seated audience watches together."
     }
+  },
+  {
+    id:"football", name:"black-and-white football", lead:"what a", knownSince:1970,
+    concepts:[
+      {label:"a ball made for a team sport", words:["ball","round","sport","team","game","panels","leather"]},
+      {label:"kicked and passed with the feet", words:["kick","foot","feet","pass","field","pitch"]},
+      {label:"modern black-and-white panel design", words:["black","white","panel","patch","pattern","sewn","television","1970"]}
+    ],
+    samples:{
+      old:"This is a rounded leather ball for a game played between two teams. People kick it toward a goal, and this newer kind has alternating black and white patches sewn into the cover so it is easy to see during a televised match.",
+      early:"It is the ball used in association football, but its modern covering has distinct black and white panels, designed to be visible on television.",
+      "50s":"It is an association football with the distinctive black-and-white patchwork style that became famous in the 1970 World Cup.",
+      "60s":"Picture a standard football, but with alternating black and white panels arranged to show up clearly on a television broadcast."
+    }
+  },
+  {
+    id:"qr-code", name:"QR code", lead:"what a", knownSince:1994,
+    concepts:[
+      {label:"printed square pattern of black and white marks", words:["square","black","white","block","grid","pattern","mark","code"]},
+      {label:"stores coded information", words:["information","data","message","store","contains","link","writing"]},
+      {label:"a camera can read it", words:["scan","camera","read","machine","device","lens","photograph"]}
+    ],
+    samples:{
+      old:"Picture a little square covered in carefully arranged black and white marks. The arrangement carries a message, much as ink marks on a page do, but a modern optical machine reads it at a glance rather than a person sounding out letters.",
+      early:"Imagine a small black-and-white square whose pattern stands for encoded information. A machine with a camera reads the pattern and displays the message immediately.",
+      "50s":"It is a two-dimensional barcode made of black and white blocks. A camera device scans the pattern to read stored information.",
+      "60s":"Think of a compact square barcode. Its tiny black and white shapes encode data that a camera-equipped machine can decode.",
+      "70s":"It is a scannable square pattern that encodes information, such as a message or a destination address. A camera reads it automatically.",
+      "80s":"A QR code is a small square matrix of black and white marks. A camera scans the pattern and a computer decodes the stored data."
+    }
+  },
+  {
+    id:"captcha", name:"CAPTCHA", lead:"what a", knownSince:2000,
+    concepts:[
+      {label:"a test to distinguish people from automated programs", words:["human","person","robot","bot","real","test","prove","verify","verification"]},
+      {label:"appears at an online form or website", words:["site","website","internet","online","form","screen","computer","page"]},
+      {label:"makes abuse by automatic software harder", words:["automat","program","spam","attack","abuse","machine","prevent","block"]}
+    ],
+    samples:{
+      old:"Imagine an unseen gatekeeper to an enormous shared noticeboard, who asks each visitor to perform a small task. A real person can answer, but a mechanical imitator may fail. This helps keep automatic intruders from filling the noticeboard with unwanted messages.",
+      early:"Picture a small test at the entrance to an electronic noticeboard. A person is asked to recognise letters or pictures, because automatic machines might otherwise overwhelm the service.",
+      "50s":"It is a brief computer-screen test designed to tell a human visitor from an automated program. It helps prevent programs from entering or submitting forms repeatedly.",
+      "60s":"Imagine a computer service that asks users to solve a simple visual test before continuing. The purpose is to stop automated programs pretending to be people.",
+      "70s":"A CAPTCHA is a small challenge presented on a computer screen to separate human users from automated scripts.",
+      "80s":"Think of a verification test on a networked computer form. It asks for a human response to help block automated programs.",
+      "90s":"It is a test on a website intended to tell whether a real person, rather than a software bot, is using the page. It may ask you to recognise distorted writing or click a checkbox."
+    }
   }
 ];
 
@@ -187,132 +235,118 @@ const FUTURE_WORDS = [
 ];
 
 const $ = id => document.getElementById(id);
-const eraEl = $("era"), itemEl = $("itemSelect"), promptEl = $("prompt");
-const answerEl = $("answer"), feedbackEl = $("feedback"), checkEl = $("check");
-let activeEra=null, activeItem=null;
+const eraEl=$("era"), promptEl=$("prompt"), startEl=$("startScreen"), feedbackEl=$("feedback");
+const answerEl=$("answer"), checkEl=$("check");
+let activeEra=ERAS[0], activeItem=null, started=false;
 
-function addOption(select, value, title) {
-  const opt=document.createElement("option");
-  opt.value=value;
-  opt.textContent=title;
-  select.appendChild(opt);
+function sampleFor(item, era) {
+  // The original premodern examples were written as 'old'.
+  // The 1995 audience can understand the earlier 1985-era explanations.
+  if(item.samples[era.id]) return item.samples[era.id];
+  if(era.id==="17th") return item.samples.old||null;
+  if(era.id==="90s") return item.samples["90s"]||item.samples["80s"]||null;
+  return null;
 }
-
-ERAS.forEach(era=>addOption(eraEl,era.id,era.label));
-
-function eligible(era) {
-  return ITEMS.filter(item=>item.knownSince>era.year && !!item.samples[era.id]);
+function valid(item,era) {
+  return Boolean(item && era && item.knownSince>era.year && sampleFor(item,era));
 }
-
-function pickNewItem(items, previousId) {
-  const others=items.filter(item=>item.id!==previousId);
-  const pool=others.length?others:items;
-  return pool[Math.floor(Math.random()*pool.length)];
+function eligible(era) { return ITEMS.filter(item=>valid(item,era)); }
+function randomNext(items,previousId) {
+  const different=items.filter(item=>item.id!==previousId);
+  const candidates=different.length?different:items;
+  return candidates[Math.floor(Math.random()*candidates.length)];
 }
-
-function renderItem(id) {
-  const found=eligible(activeEra).find(item=>item.id===id);
-  if(!found) return;
-  activeItem=found;
-  itemEl.value=id;
-  $("itemName").textContent=found.name;
-  $("whatLine").textContent=found.lead;
+function refreshEras(){
+  eraEl.replaceChildren();
+  ERAS.forEach(era=>{
+    const opt=document.createElement("option");
+    opt.value=era.id; opt.textContent=era.label;
+    opt.disabled=Boolean(started && activeItem && !valid(activeItem,era));
+    opt.selected=era.id===activeEra.id;
+    if(opt.disabled) opt.textContent+=" · unavailable for this item";
+    eraEl.appendChild(opt);
+  });
+  eraEl.value=activeEra.id;
+  $("listener").textContent=activeEra.note;
+}
+function renderRound() {
+  if(!activeItem)return;
+  $("itemName").textContent=activeItem.name;
+  $("whatLine").textContent=activeItem.lead;
   answerEl.value="";
   feedbackEl.hidden=true;
   feedbackEl.replaceChildren();
-
-  const img=$("itemImage");
-  const placeholder=$("imagePlaceholder");
-  img.hidden=true;
-  placeholder.hidden=false;
-  img.alt=found.name;
-  img.onload=()=>{if(activeItem===found){img.hidden=false;placeholder.hidden=true;}};
-  img.onerror=()=>{img.hidden=true;placeholder.hidden=false;};
-  img.src="./images/"+found.id+".png";
+  renderImage(activeItem);
   checkEl.disabled=false;
+  refreshEras();
 }
-
-function chooseEra(id) {
-  activeEra=ERAS.find(era=>era.id===id)||null;
-  if(!activeEra) return;
-  $("listener").textContent=activeEra.note;
-  const available=eligible(activeEra);
-  itemEl.replaceChildren();
-  available.forEach(item=>addOption(itemEl,item.id,item.name));
-  promptEl.hidden=available.length===0;
-  if(available.length) renderItem(pickNewItem(available,null).id);
+function nextRound() {
+  const pool=eligible(activeEra);
+  if(!pool.length)return;
+  activeItem=randomNext(pool,activeItem?.id||null);
+  renderRound();
 }
-
-function hasTerm(text, term) {
-  // Match words and phrases, but allow stems such as 'insulat' or 'assign'.
-  const safe=term.toLowerCase().replace(/[.*+?^$|()[\]{}\\]/g,"\\$&");
-  return new RegExp("\\b"+safe, "i").test(text);
+function setEra(id) {
+  const found=ERAS.find(e=>e.id===id);
+  if(!found)return;
+  if(started && activeItem && !valid(activeItem,found))return;
+  activeEra=found;
+  if(started) renderRound();
+  else refreshEras();
 }
-
+function startGame() {
+  if(started)return;
+  started=true;
+  startEl.hidden=true;
+  promptEl.hidden=false;
+  nextRound();
+}
+function hasTerm(text, term){
+  // Word/phrase cue matching, including common stems such as "insulat".
+  const safe=term.toLowerCase().replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&");
+  return new RegExp("\\b"+safe,"i").test(text);
+}
 function hasWholeTerm(text, term) {
-  const safe=term.toLowerCase().replace(/[.*+?^$|()[\]{}\\]/g,"\\function node(tag, text, className) {");
-  return new RegExp("\\b"+safe+"\\b", "i").test(text);
+  const safe=term.toLowerCase().replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&");
+  return new RegExp("\\b"+safe+"\\b","i").test(text);
 }
-
-function node(tag, text, className) {
+function node(tag,text,className){
   const el=document.createElement(tag);
-  if(text!==undefined) el.textContent=text;
-  if(className) el.className=className;
+  if(text!==undefined)el.textContent=text;
+  if(className)el.className=className;
   return el;
 }
-
-function grade() {
-  if(!activeItem || !activeEra) return;
+function grade(){
+  if(!activeItem||!activeEra)return;
   const raw=answerEl.value.trim();
   feedbackEl.hidden=false;
   feedbackEl.replaceChildren();
-  if(raw.length<12) {
+  if(raw.length<12){
     feedbackEl.appendChild(node("h2","Give your listener a little more to work with."));
-    feedbackEl.appendChild(node("p","Try at least a sentence or two. Think about what they already know."));
+    feedbackEl.appendChild(node("p","Try at least a sentence or two. What would someone in their time already recognise?"));
     return;
   }
   const found=activeItem.concepts.filter(c=>c.words.some(word=>hasTerm(raw,word)));
   const missing=activeItem.concepts.filter(c=>!found.includes(c));
-  const outdated=FUTURE_WORDS
-    .filter(w=>w.year>activeEra.year && hasWholeTerm(raw,w.word))
-    .map(w=>w.word);
-  const uniqueWords=[...new Set(outdated)];
-  let heading="A promising explanation";
-  if(found.length===0) heading="Let's test your explanation";
-  if(found.length===activeItem.concepts.length) heading="You've covered the main ideas";
-  feedbackEl.appendChild(node("h2",heading));
-  feedbackEl.appendChild(node("p","The offline answer sheet spotted "+found.length+" of "+activeItem.concepts.length+" ideas. This is a word-matching guide, not an AI judge; a different but excellent explanation may score lower.","subtle"));
-
-  if(missing.length) {
+  const outdated=[...new Set(FUTURE_WORDS
+    .filter(w=>w.year>activeEra.year&&hasWholeTerm(raw,w.word))
+    .map(w=>w.word))];
+  feedbackEl.appendChild(node("h2",found.length===activeItem.concepts.length?"You've covered the main ideas":"Let's compare explanations"));
+  feedbackEl.appendChild(node("p","The offline answer sheet spotted "+found.length+" of "+activeItem.concepts.length+" suggested ideas. This is a keyword guide, not an AI judge; great metaphors may use completely different words.","subtle"));
+  if(missing.length){
     feedbackEl.appendChild(node("p","You could also explain:"));
     const ul=node("ul");
     missing.forEach(c=>ul.appendChild(node("li",c.label)));
     feedbackEl.appendChild(ul);
-  } else {
-    feedbackEl.appendChild(node("p","You've touched every concept in the checklist. The remaining challenge is making the ideas feel familiar to someone from the past."));
-  }
-  if(uniqueWords.length) {
-    feedbackEl.appendChild(node("p","Watch your time-travel vocabulary: "+uniqueWords.join(", ")+". Your listener in "+activeEra.year+" may not know those terms yet. Try describing them instead."));
-  }
+  } else feedbackEl.appendChild(node("p","You've touched every idea on the checklist. How well would your listener understand the analogy?"));
+  if(outdated.length)feedbackEl.appendChild(node("p","Watch out for words from the future: "+outdated.join(", ")+". Your listener in "+activeEra.year+" may not know them."));
   const box=node("div",undefined,"modelanswer");
-  box.appendChild(node("strong","Example explanation for "+activeEra.year));
-  box.appendChild(node("p",activeItem.samples[activeEra.id]));
+  box.appendChild(node("strong","An example for "+activeEra.year));
+  box.appendChild(node("p",sampleFor(activeItem,activeEra)));
   feedbackEl.appendChild(box);
 }
-
-eraEl.addEventListener("change",()=>chooseEra(eraEl.value));
-itemEl.addEventListener("change",()=>renderItem(itemEl.value));
-$("next").addEventListener("click",()=>{
-  if(!activeEra || !activeItem) return;
-  renderItem(pickNewItem(eligible(activeEra),activeItem.id).id);
-});
+eraEl.addEventListener("change",()=>setEra(eraEl.value));
+$("startGame").addEventListener("click",startGame);
+$("next").addEventListener("click",nextRound);
 checkEl.addEventListener("click",grade);
-
-// Small wording change for articles: what a / what an / what / what the.
-const lead=$("whatLine");
-if(!lead) {
-  const replacement=node("p","what a","line");
-  replacement.id="whatLine";
-  const first=promptEl.querySelector(".line");
-  first.replaceWith(replacement);
-}
+refreshEras();
