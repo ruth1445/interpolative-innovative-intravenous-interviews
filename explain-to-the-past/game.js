@@ -234,6 +234,37 @@ const FUTURE_WORDS = [
   {word:"electric motor", year:1830}, {word:"subway", year:1863}
 ];
 
+// Normalized 1:1 pictures are packed into a single lightweight WebP atlas.
+// Each tile is 280px square and uses padding rather than hard cropping.
+const IMAGE_ORDER = [
+  "stanley","llm","six-seven","ipad",
+  "spotify","matcha","jira","double-tape",
+  "electricity","mta","cinema","football",
+  "qr-code","captcha"
+];
+const atlas=new Image();
+atlas.onload=()=>{ if(activeItem)renderImage(activeItem); };
+atlas.onerror=()=>{ if(activeItem)renderImage(activeItem); };
+atlas.src="./images/atlas.webp?v=20261119";
+function renderImage(item){
+  const canvas=document.getElementById("itemImage");
+  const placeholder=document.getElementById("imagePlaceholder");
+  canvas.setAttribute("aria-label",item.name);
+  const index=IMAGE_ORDER.indexOf(item.id);
+  if(index<0 || !atlas.complete || !atlas.naturalWidth){
+    canvas.hidden=true;
+    placeholder.hidden=false;
+    return;
+  }
+  const ctx=canvas.getContext("2d");
+  if(!ctx)return;
+  const unit=280;
+  ctx.clearRect(0,0,unit,unit);
+  ctx.drawImage(atlas,(index%4)*unit,Math.floor(index/4)*unit,unit,unit,0,0,unit,unit);
+  canvas.hidden=false;
+  placeholder.hidden=true;
+}
+
 const $ = id => document.getElementById(id);
 const eraEl=$("era"), promptEl=$("prompt"), startEl=$("startScreen"), feedbackEl=$("feedback");
 const answerEl=$("answer"), checkEl=$("check");
