@@ -406,6 +406,9 @@ function viewIndex(){
       <nav class="name-index" aria-label="people">
         ${nameIndexHTML()}
       </nav>
+      <div class="game-launch">
+        <a class="game-launch__link" href="/explain-to-the-past/" aria-label="Play Explain to Someone from the Past">play a little game ↗</a>
+      </div>
     </div>
   </div>
 
