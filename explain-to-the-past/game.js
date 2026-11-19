@@ -249,6 +249,11 @@ function hasTerm(text, term) {
   return new RegExp("\\b"+safe, "i").test(text);
 }
 
+function hasWholeTerm(text, term) {
+  const safe=term.toLowerCase().replace(/[.*+?^$|()[\]{}\\]/g,"\\function node(tag, text, className) {");
+  return new RegExp("\\b"+safe+"\\b", "i").test(text);
+}
+
 function node(tag, text, className) {
   const el=document.createElement(tag);
   if(text!==undefined) el.textContent=text;
@@ -269,7 +274,7 @@ function grade() {
   const found=activeItem.concepts.filter(c=>c.words.some(word=>hasTerm(raw,word)));
   const missing=activeItem.concepts.filter(c=>!found.includes(c));
   const outdated=FUTURE_WORDS
-    .filter(w=>w.year>activeEra.year && hasTerm(raw,w.word))
+    .filter(w=>w.year>activeEra.year && hasWholeTerm(raw,w.word))
     .map(w=>w.word);
   const uniqueWords=[...new Set(outdated)];
   let heading="A promising explanation";
