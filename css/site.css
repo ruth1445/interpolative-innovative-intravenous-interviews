@@ -1458,3 +1458,18 @@ body.lightbox-open{overflow:hidden}
     letter-spacing:-.04em;
   }
 }
+
+/* Quiet game link at the bottom of the interview homepage. */
+.hand-page .game-launch{display:flex;justify-content:flex-end;margin-top:clamp(14px,2vh,24px)}
+.hand-page .game-launch__link{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:29px;padding:5px 13px 6px;
+  border:1px solid #16150F;border-radius:999px;
+  background:transparent;color:#16150F;text-decoration:none;
+  font-family:var(--press);font-size:12px;line-height:1.15;
+  transition:color .15s ease,border-color .15s ease;
+}
+.hand-page .game-launch__link:hover,
+.hand-page .game-launch__link:focus-visible{
+  color:var(--press-red);border-color:var(--press-red);
+}
