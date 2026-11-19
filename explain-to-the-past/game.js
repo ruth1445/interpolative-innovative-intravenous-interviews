@@ -2,6 +2,7 @@
 // "Known since" is a conservative practical milestone, not a claim that
 // every precursor or concept was unknown until that exact year.
 const ERAS = [
+  { id:"16th", label:"16th century", year:1550 },
   { id:"17th", label:"17th century", year:1650 },
   { id:"18th", label:"18th century", year:1750 },
   { id:"19th", label:"19th century", year:1850 },
@@ -270,13 +271,13 @@ function renderImage(item){
 const $ = id => document.getElementById(id);
 const eraEl=$("era"), promptEl=$("prompt"), startEl=$("startScreen"), feedbackEl=$("feedback");
 const answerEl=$("answer"), checkEl=$("check");
-let activeEra=ERAS[0], activeItem=null, started=false;
+let activeEra=ERAS.find(e=>e.id==="17th"), activeItem=null, started=false;
 
 function sampleFor(item, era) {
   // The original premodern examples were written as 'old'.
   // The 1995 audience can understand the earlier 1985-era explanations.
   if(item.samples[era.id]) return item.samples[era.id];
-  if(["17th","18th","19th"].includes(era.id)) return item.samples.old||null;
+  if(["16th","17th","18th","19th"].includes(era.id)) return item.samples.old||null;
   if(era.id==="90s") return item.samples["90s"]||item.samples["80s"]||null;
   return null;
 }
