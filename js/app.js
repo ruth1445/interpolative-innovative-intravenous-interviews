@@ -407,7 +407,7 @@ function viewIndex(){
         ${nameIndexHTML()}
       </nav>
       <div class="game-launch">
-        <a class="game-launch__link" href="/explain-to-the-past/" aria-label="Play Explain to Someone from the Past">play a little game ↗</a>
+        <a class="game-launch__dot" href="/explain-to-the-past/" aria-label="Play Explain to Someone from the Past" title="Play a little game"><span class="game-launch__caption">play a little game</span><span class="game-launch__circle" aria-hidden="true"></span></a>
       </div>
     </div>
   </div>
