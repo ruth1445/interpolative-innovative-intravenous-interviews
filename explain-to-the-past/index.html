@@ -22,15 +22,12 @@
   .select svg { position:absolute; right:19px; top:50%; width:18px; height:18px; transform:translateY(-50%); pointer-events:none; }
   .listener { min-height:20px; margin:-9px 0 0; color:var(--muted); font-size:13px; line-height:1.5; }
   .prompt { display:flex; flex-direction:column; align-items:center; gap:18px; width:100%; }
-  .illustration { position:relative; width:min(300px,88%); height:230px; margin:4px 0 0; display:flex; justify-content:center; align-items:center; }
-  .illustration img { display:block; width:100%; height:100%; object-fit:contain; }
-  .picture-placeholder { width:230px; max-width:100%; min-height:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; border:1px dashed #ccc8bc; border-radius:18px; background:#faf9f5; }
+  .illustration { position:relative; width:min(300px,88%); aspect-ratio:1/1; margin:4px 0 0; display:flex; justify-content:center; align-items:center; }
+  .illustration canvas { display:block; width:100%; height:100%; object-fit:contain; }
+  .picture-placeholder { width:100%; height:100%; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; border:1px dashed #ccc8bc; border-radius:18px; background:#faf9f5; }
   .picture-placeholder svg { width:46px; height:46px; stroke:#999487; }
   .picture-placeholder span { font-size:12px; color:#8c887e; letter-spacing:.03em; }
   .itemname { margin:0; font-size:clamp(25px,4.4vw,37px); font-weight:700; line-height:1.2; letter-spacing:-.02em; }
-  .itempick { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; margin-top:-7px; }
-  .itempick label { color:var(--muted); font-size:13px; }
-  #itemSelect { min-height:36px; max-width:min(330px,75vw); padding:6px 14px; border:1px solid var(--border); background:#fff; border-radius:12px; font-size:13px; font-weight:500; text-align:left; text-align-last:left; }
   .answer { width:100%; display:flex; align-items:flex-start; gap:18px; text-align:left; margin-top:7px; }
   .answer label { flex:none; font-size:clamp(28px,4.6vw,40px); font-weight:700; line-height:1.15; letter-spacing:-.025em; }
   .answer textarea { flex:1; min-width:0; min-height:112px; resize:vertical; border:0; border-bottom:2px solid var(--ink); padding:4px 0 10px; border-radius:0; outline:none; background:transparent; color:var(--ink); font:400 clamp(17px,2.8vw,23px)/1.45 Inter,system-ui,sans-serif; }
@@ -42,7 +39,11 @@
   button:disabled { opacity:.35; cursor:not-allowed; }
   .guide { margin:-7px 0 0; color:var(--muted); font-size:12px; line-height:1.6; max-width:540px; }
   .feedback { width:100%; margin-top:4px; border-top:1px solid var(--border); padding-top:23px; text-align:left; }
-  .feedback[hidden], .prompt[hidden], .picture-placeholder[hidden], .illustration img[hidden], .itempick[hidden] { display:none; }
+  [hidden] { display:none !important; }
+  select option:disabled { color:#aaa49a; }
+  .start-screen { display:flex; flex-direction:column; align-items:center; gap:22px; padding:35px 0 25px; }
+  .start-btn { padding:18px 32px; letter-spacing:.08em; font-size:15px; }
+  .start-btn:hover { background:#373737; }
   .feedback h2 { font-size:18px; letter-spacing:-.02em; margin:0 0 7px; }
   .feedback p { font-size:14px; line-height:1.7; margin:8px 0; }
   .feedback .subtle { color:var(--muted); }
@@ -53,8 +54,6 @@
   footer { color:#8b877f; margin:4px 0 0; font-size:11px; }
   @media(max-width:540px){
     main { gap:20px; }
-    .illustration { height:190px; }
-    .picture-placeholder { min-height:178px; }
     .answer { gap:10px; }
     .answer textarea { min-height:132px; }
     .actionrow button { flex:1; }
@@ -66,16 +65,18 @@
   <p class="eyebrow">A little time-travel experiment</p>
   <h1 class="line">Explain to someone from the</h1>
   <div class="select">
-    <select id="era" aria-label="Choose an era">
-      <option value="" selected disabled>Choose an Era</option>
-    </select>
+    <select id="era" aria-label="Choose an era"></select>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8 8 8-8"/></svg>
   </div>
-  <p class="listener" id="listener" aria-live="polite">Pick a century to begin.</p>
+  <p class="listener" id="listener" aria-live="polite"></p>
+  <section id="startScreen" class="start-screen">
+    <button id="startGame" class="start-btn" type="button">START GAME</button>
+    <p class="guide">A random object awaits. Choose a different era whenever you like.</p>
+  </section>
   <section id="prompt" class="prompt" hidden aria-label="Explanation challenge">
-    <p class="line">what a</p>
+    <p class="line" id="whatLine">what a</p>
     <div class="illustration">
-      <img id="itemImage" alt="" hidden>
+      <canvas id="itemImage" width="280" height="280" role="img" aria-label="" hidden></canvas>
       <div id="imagePlaceholder" class="picture-placeholder">
         <svg viewBox="0 0 48 48" fill="none" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true">
           <rect x="6" y="8" width="36" height="32" rx="3"/><circle cx="16" cy="19" r="3"/><path d="M8 34l11-11 7 7 5-5 9 10"/>
@@ -84,10 +85,6 @@
       </div>
     </div>
     <h2 id="itemName" class="itemname"></h2>
-    <div class="itempick" id="itemPick">
-      <label for="itemSelect">or choose an item:</label>
-      <select id="itemSelect" aria-label="Choose an item"></select>
-    </div>
     <div class="answer">
       <label for="answer">is:</label>
       <textarea id="answer" placeholder="Your explanation here" autocomplete="off" spellcheck="true" aria-label="Your explanation"></textarea>
