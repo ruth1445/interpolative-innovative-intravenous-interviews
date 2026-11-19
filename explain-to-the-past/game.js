@@ -258,9 +258,9 @@ function renderImage(item){
   }
   const ctx=canvas.getContext("2d");
   if(!ctx)return;
-  const unit=280;
-  ctx.clearRect(0,0,unit,unit);
-  ctx.drawImage(atlas,(index%4)*unit,Math.floor(index/4)*unit,unit,unit,0,0,unit,unit);
+  const unit=240, target=280;
+  ctx.clearRect(0,0,target,target);
+  ctx.drawImage(atlas,(index%4)*unit,Math.floor(index/4)*unit,unit,unit,0,0,target,target);
   canvas.hidden=false;
   placeholder.hidden=true;
 }
