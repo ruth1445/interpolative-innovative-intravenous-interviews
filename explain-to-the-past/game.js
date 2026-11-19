@@ -16,7 +16,7 @@ const ERAS = [
 
 // Each "concept" is part of the non-AI answer sheet. Matched words are
 // *prompts for human review*, not a reliable semantic correctness score.
-// Each prompt uses one of the supplied photographs in a compact 4 x 4 atlas.
+// Images come directly from the existing high-resolution repository files.
 const ITEMS = [
   {
     id:"stanley", name:"Stanley tumbler", lead:"what a", knownSince:2016,
@@ -177,7 +177,7 @@ const ITEMS = [
     }
   },
   {
-    id:"football", name:"black-and-white football", lead:"what a", knownSince:1970,
+    id:"football", name:"soccer ball", lead:"what a", knownSince:1970,
     concepts:[
       {label:"a ball made for a team sport", words:["ball","round","sport","team","game","panels","leather"]},
       {label:"kicked and passed with the feet", words:["kick","foot","feet","pass","field","pitch"]},
@@ -237,35 +237,42 @@ const FUTURE_WORDS = [
   {word:"electric motor", year:1830}, {word:"subway", year:1863}
 ];
 
-// Normalized 1:1 pictures are packed into a single lightweight WebP atlas.
-// Each tile is 280px square and uses padding rather than hard cropping.
-const IMAGE_ORDER = [
-  "stanley","llm","six-seven","ipad",
-  "spotify","matcha","jira","double-tape",
-  "electricity","mta","cinema","football",
-  "qr-code","captcha"
-];
-const atlas=new Image();
-atlas.onload=()=>{ if(activeItem)renderImage(activeItem); };
-atlas.onerror=()=>{ if(activeItem)renderImage(activeItem); };
-atlas.src="./images/atlas.webp?v=20261119";
+// Display original full-resolution photos in equal-size frames without cropping.
+const IMAGE_PATHS = {
+  "stanley":"../pictures/stanley.jpg",
+  "llm":"../pictures/CHATGPT PNG.jpg",
+  "six-seven":"../pictures/67.jpg",
+  "ipad":"../pictures/ipad.jpg",
+  "spotify":"../pictures/download spotify icon green logo.jpg",
+  "matcha":"../matcha.jpg",
+  "jira":"../pictures/Jira_ Project Management for the AI Era.jpg",
+  "double-tape":"../pictures/Scotch® Double Sided Tape, 3ct_.jpg",
+  "electricity":"../pictures/Electricity.jpg",
+  "mta":"../pictures/next stop_..",
+  "cinema":"../pictures/ theatre.jpg",
+  "football":"../pictures/Soccer.jpg",
+  "qr-code":"../pictures/QR.jpg",
+  "captcha":"../CAPTCHA.jpg"
+};
 function renderImage(item){
-  const canvas=document.getElementById("itemImage");
+  const image=document.getElementById("itemImage");
   const placeholder=document.getElementById("imagePlaceholder");
-  canvas.setAttribute("aria-label",item.name);
-  const index=IMAGE_ORDER.indexOf(item.id);
-  if(index<0 || !atlas.complete || !atlas.naturalWidth){
-    canvas.hidden=true;
-    placeholder.hidden=false;
-    return;
-  }
-  const ctx=canvas.getContext("2d");
-  if(!ctx)return;
-  const unit=64, target=280;
-  ctx.clearRect(0,0,target,target);
-  ctx.drawImage(atlas,(index%4)*unit,Math.floor(index/4)*unit,unit,unit,0,0,target,target);
-  canvas.hidden=false;
-  placeholder.hidden=true;
+  image.hidden=true;
+  placeholder.hidden=false;
+  image.alt=item.name;
+  image.onload=()=>{
+    if(activeItem===item){
+      image.hidden=false;
+      placeholder.hidden=true;
+    }
+  };
+  image.onerror=()=>{
+    if(activeItem===item){
+      image.hidden=true;
+      placeholder.hidden=false;
+    }
+  };
+  image.src=encodeURI(IMAGE_PATHS[item.id]||"");
 }
 
 const $ = id => document.getElementById(id);
@@ -310,6 +317,7 @@ function renderRound() {
   feedbackEl.replaceChildren();
   renderImage(activeItem);
   checkEl.disabled=false;
+  $("next").disabled=true;
   refreshEras();
 }
 function nextRound() {
@@ -350,32 +358,30 @@ function node(tag,text,className){
 }
 function grade(){
   if(!activeItem||!activeEra)return;
-  const raw=answerEl.value.trim();
-  feedbackEl.hidden=false;
+  const text=answerEl.value.trim();
+  const matched=activeItem.concepts.filter(concept=>
+    concept.words.some(word=>hasTerm(text,word))
+  ).length;
+  const words=(text.match(/\b[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)?\b/gu)||[]).length;
+  const hasAnachronism=FUTURE_WORDS.some(word=>
+    word.year>activeEra.year&&hasWholeTerm(text,word.word)
+  );
+  // Offline score: 1 starting point, 2 for each of 3 key ideas,
+  // 1 for at least 12 words, 1 for at least 28 words,
+  // and 1 for complete, era-appropriate vocabulary.
+  // The maximum possible is 10; only 8+ unlocks the next round.
+  const score=Math.min(10,
+    1+matched*2+(words>=12?1:0)+(words>=28?1:0)+
+    (matched===3&&!hasAnachronism?1:0)
+  );
+  const message=score<=5?"explanation sucks. try again":
+    score<=7?"mid. try again":
+    score===8?"not bad":"excellent";
   feedbackEl.replaceChildren();
-  if(raw.length<12){
-    feedbackEl.appendChild(node("h2","Give your listener a little more to work with."));
-    feedbackEl.appendChild(node("p","Try at least a sentence or two. What would someone in their time already recognise?"));
-    return;
-  }
-  const found=activeItem.concepts.filter(c=>c.words.some(word=>hasTerm(raw,word)));
-  const missing=activeItem.concepts.filter(c=>!found.includes(c));
-  const outdated=[...new Set(FUTURE_WORDS
-    .filter(w=>w.year>activeEra.year&&hasWholeTerm(raw,w.word))
-    .map(w=>w.word))];
-  feedbackEl.appendChild(node("h2",found.length===activeItem.concepts.length?"You've covered the main ideas":"Let's compare explanations"));
-  feedbackEl.appendChild(node("p","The offline answer sheet spotted "+found.length+" of "+activeItem.concepts.length+" suggested ideas. This is a keyword guide, not an AI judge; great metaphors may use completely different words.","subtle"));
-  if(missing.length){
-    feedbackEl.appendChild(node("p","You could also explain:"));
-    const ul=node("ul");
-    missing.forEach(c=>ul.appendChild(node("li",c.label)));
-    feedbackEl.appendChild(ul);
-  } else feedbackEl.appendChild(node("p","You've touched every idea on the checklist. How well would your listener understand the analogy?"));
-  if(outdated.length)feedbackEl.appendChild(node("p","Watch out for words from the future: "+outdated.join(", ")+". Your listener in "+activeEra.year+" may not know them."));
-  const box=node("div",undefined,"modelanswer");
-  box.appendChild(node("strong","An example for "+activeEra.year));
-  box.appendChild(node("p",sampleFor(activeItem,activeEra)));
-  feedbackEl.appendChild(box);
+  feedbackEl.appendChild(node("p",score+"/10","score"));
+  feedbackEl.appendChild(node("p",message,"verdict"));
+  feedbackEl.hidden=false;
+  $("next").disabled=score<8;
 }
 eraEl.addEventListener("change",()=>setEra(eraEl.value));
 $("startGame").addEventListener("click",startGame);
