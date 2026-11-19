@@ -1473,3 +1473,19 @@ body.lightbox-open{overflow:hidden}
 .hand-page .game-launch__link:focus-visible{
   color:var(--press-red);border-color:var(--press-red);
 }
+
+/* A small black dot, below the interview names, leads into the game. */
+.hand-page .game-launch__dot{
+  display:inline-flex;align-items:center;gap:9px;
+  color:#16150f;text-decoration:none;font-family:var(--press);
+  font-size:11px;line-height:1.1;
+}
+.hand-page .game-launch__circle{
+  display:block;width:19px;height:19px;border-radius:50%;
+  background:#111;transition:transform .16s ease,background .16s ease;
+}
+.hand-page .game-launch__dot:hover .game-launch__circle,
+.hand-page .game-launch__dot:focus-visible .game-launch__circle{
+  transform:scale(1.18);background:var(--press-red);
+}
+.hand-page .game-launch__caption{opacity:.7;}
