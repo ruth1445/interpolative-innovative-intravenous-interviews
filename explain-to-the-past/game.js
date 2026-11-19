@@ -2,13 +2,15 @@
 // "Known since" is a conservative practical milestone, not a claim that
 // every precursor or concept was unknown until that exact year.
 const ERAS = [
-  { id:"17th", label:"17th century", year:1650, note:"You are talking to someone in the year 1650." },
-  { id:"early", label:"Early 20th century", year:1920, note:"You are talking to someone in the year 1920." },
-  { id:"50s", label:"1950s", year:1955, note:"You are talking to someone in the year 1955." },
-  { id:"60s", label:"1960s", year:1965, note:"You are talking to someone in the year 1965." },
-  { id:"70s", label:"1970s", year:1975, note:"You are talking to someone in the year 1975." },
-  { id:"80s", label:"1980s", year:1985, note:"You are talking to someone in the year 1985." },
-  { id:"90s", label:"1990s", year:1995, note:"You are talking to someone in the year 1995." }
+  { id:"17th", label:"17th century", year:1650 },
+  { id:"18th", label:"18th century", year:1750 },
+  { id:"19th", label:"19th century", year:1850 },
+  { id:"early", label:"Early 20th century", year:1920 },
+  { id:"50s", label:"1950s", year:1955 },
+  { id:"60s", label:"1960s", year:1965 },
+  { id:"70s", label:"1970s", year:1975 },
+  { id:"80s", label:"1980s", year:1985 },
+  { id:"90s", label:"1990s", year:1995 }
 ];
 
 // Each "concept" is part of the non-AI answer sheet. Matched words are
@@ -274,7 +276,7 @@ function sampleFor(item, era) {
   // The original premodern examples were written as 'old'.
   // The 1995 audience can understand the earlier 1985-era explanations.
   if(item.samples[era.id]) return item.samples[era.id];
-  if(era.id==="17th") return item.samples.old||null;
+  if(["17th","18th","19th"].includes(era.id)) return item.samples.old||null;
   if(era.id==="90s") return item.samples["90s"]||item.samples["80s"]||null;
   return null;
 }
@@ -294,11 +296,9 @@ function refreshEras(){
     opt.value=era.id; opt.textContent=era.label;
     opt.disabled=Boolean(started && activeItem && !valid(activeItem,era));
     opt.selected=era.id===activeEra.id;
-    if(opt.disabled) opt.textContent+=" · unavailable for this item";
     eraEl.appendChild(opt);
   });
   eraEl.value=activeEra.id;
-  $("listener").textContent=activeEra.note;
 }
 function renderRound() {
   if(!activeItem)return;
