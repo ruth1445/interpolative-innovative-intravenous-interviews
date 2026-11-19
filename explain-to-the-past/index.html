@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>Explain to someone from the past · Public Yuzu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#111; --muted:#777771; --placeholder:#b9b9b5; --pill:#f6f5f1; --bg:#fff; --border:#e6e4dd; }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,system-ui,sans-serif; }
+  main { width:100%; max-width:760px; margin:0 auto; padding:clamp(46px,8vh,88px) 24px 80px; display:flex; flex-direction:column; align-items:center; gap:24px; text-align:center; }
+  .eyebrow { margin:0; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.17em; }
+  .line { margin:0; font-size:clamp(27px,4.6vw,40px); font-weight:700; letter-spacing:-.025em; line-height:1.16; }
+  .select { position:relative; width:min(340px,100%); }
+  select { appearance:none; -webkit-appearance:none; width:100%; min-height:54px; padding:12px 43px 12px 22px; border:0; border-radius:999px; background:var(--pill); color:var(--ink); font:600 17px/1.2 Inter,system-ui,sans-serif; text-align:center; text-align-last:center; cursor:pointer; }
+  select:focus-visible, button:focus-visible, textarea:focus-visible { outline:2px solid #111; outline-offset:3px; }
+  .select svg { position:absolute; right:19px; top:50%; width:18px; height:18px; transform:translateY(-50%); pointer-events:none; }
+  .listener { min-height:20px; margin:-9px 0 0; color:var(--muted); font-size:13px; line-height:1.5; }
+  .prompt { display:flex; flex-direction:column; align-items:center; gap:18px; width:100%; }
+  .illustration { position:relative; width:min(300px,88%); height:230px; margin:4px 0 0; display:flex; justify-content:center; align-items:center; }
+  .illustration img { display:block; width:100%; height:100%; object-fit:contain; }
+  .picture-placeholder { width:230px; max-width:100%; min-height:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; border:1px dashed #ccc8bc; border-radius:18px; background:#faf9f5; }
+  .picture-placeholder svg { width:46px; height:46px; stroke:#999487; }
+  .picture-placeholder span { font-size:12px; color:#8c887e; letter-spacing:.03em; }
+  .itemname { margin:0; font-size:clamp(25px,4.4vw,37px); font-weight:700; line-height:1.2; letter-spacing:-.02em; }
+  .itempick { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; margin-top:-7px; }
+  .itempick label { color:var(--muted); font-size:13px; }
+  #itemSelect { min-height:36px; max-width:min(330px,75vw); padding:6px 14px; border:1px solid var(--border); background:#fff; border-radius:12px; font-size:13px; font-weight:500; text-align:left; text-align-last:left; }
+  .answer { width:100%; display:flex; align-items:flex-start; gap:18px; text-align:left; margin-top:7px; }
+  .answer label { flex:none; font-size:clamp(28px,4.6vw,40px); font-weight:700; line-height:1.15; letter-spacing:-.025em; }
+  .answer textarea { flex:1; min-width:0; min-height:112px; resize:vertical; border:0; border-bottom:2px solid var(--ink); padding:4px 0 10px; border-radius:0; outline:none; background:transparent; color:var(--ink); font:400 clamp(17px,2.8vw,23px)/1.45 Inter,system-ui,sans-serif; }
+  .answer textarea::placeholder { color:var(--placeholder); }
+  .answer textarea:focus { border-bottom-width:3px; }
+  .actionrow { width:100%; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+  button { border:1px solid #111; border-radius:999px; background:#111; color:white; padding:13px 21px; cursor:pointer; font:600 14px/1.2 Inter,system-ui,sans-serif; }
+  button.secondary { background:white; color:#111; }
+  button:disabled { opacity:.35; cursor:not-allowed; }
+  .guide { margin:-7px 0 0; color:var(--muted); font-size:12px; line-height:1.6; max-width:540px; }
+  .feedback { width:100%; margin-top:4px; border-top:1px solid var(--border); padding-top:23px; text-align:left; }
+  .feedback[hidden], .prompt[hidden], .picture-placeholder[hidden], .illustration img[hidden], .itempick[hidden] { display:none; }
+  .feedback h2 { font-size:18px; letter-spacing:-.02em; margin:0 0 7px; }
+  .feedback p { font-size:14px; line-height:1.7; margin:8px 0; }
+  .feedback .subtle { color:var(--muted); }
+  .feedback ul { padding-left:19px; margin:8px 0 15px; line-height:1.8; font-size:14px; }
+  .modelanswer { background:#f8f7f2; border-radius:15px; padding:18px 20px; margin-top:17px; }
+  .modelanswer p { margin:6px 0 0; }
+  .modelanswer strong { font-size:12px; letter-spacing:.07em; text-transform:uppercase; }
+  footer { color:#8b877f; margin:4px 0 0; font-size:11px; }
+  @media(max-width:540px){
+    main { gap:20px; }
+    .illustration { height:190px; }
+    .picture-placeholder { min-height:178px; }
+    .answer { gap:10px; }
+    .answer textarea { min-height:132px; }
+    .actionrow button { flex:1; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">A little time-travel experiment</p>
+  <h1 class="line">Explain to someone from the</h1>
+  <div class="select">
+    <select id="era" aria-label="Choose an era">
+      <option value="" selected disabled>Choose an Era</option>
+    </select>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8 8 8-8"/></svg>
+  </div>
+  <p class="listener" id="listener" aria-live="polite">Pick a century to begin.</p>
+  <section id="prompt" class="prompt" hidden aria-label="Explanation challenge">
+    <p class="line">what a</p>
+    <div class="illustration">
+      <img id="itemImage" alt="" hidden>
+      <div id="imagePlaceholder" class="picture-placeholder">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="8" width="36" height="32" rx="3"/><circle cx="16" cy="19" r="3"/><path d="M8 34l11-11 7 7 5-5 9 10"/>
+        </svg>
+        <span>Illustration coming soon</span>
+      </div>
+    </div>
+    <h2 id="itemName" class="itemname"></h2>
+    <div class="itempick" id="itemPick">
+      <label for="itemSelect">or choose an item:</label>
+      <select id="itemSelect" aria-label="Choose an item"></select>
+    </div>
+    <div class="answer">
+      <label for="answer">is:</label>
+      <textarea id="answer" placeholder="Your explanation here" autocomplete="off" spellcheck="true" aria-label="Your explanation"></textarea>
+    </div>
+    <p class="guide">Explain the idea using things your listener would know. No time-travel vocabulary shortcuts.</p>
+    <div class="actionrow">
+      <button id="check" type="button">Check my explanation</button>
+      <button id="next" class="secondary" type="button">Another item</button>
+    </div>
+    <div class="feedback" id="feedback" hidden aria-live="polite"></div>
+  </section>
+  <footer>Written for curious people, in every century.</footer>
+</main>
+<script type="module" src="./game.js"></script>
+</body>
+</html>
