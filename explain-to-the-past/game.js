@@ -225,17 +225,62 @@ const ITEMS = [
   }
 ];
 
-const FUTURE_WORDS = [
-  {word:"internet", year:1990}, {word:"website", year:1991},
-  {word:"smartphone", year:2007}, {word:"iphone", year:2007},
-  {word:"ipad", year:2010}, {word:"app", year:2008},
-  {word:"wifi", year:1997}, {word:"wi-fi", year:1997},
-  {word:"bluetooth", year:1999}, {word:"social media", year:2000},
-  {word:"streaming", year:1995}, {word:"television", year:1930},
-  {word:"tv", year:1930}, {word:"computer", year:1945},
-  {word:"radio", year:1900}, {word:"telephone", year:1876},
-  {word:"electric motor", year:1830}, {word:"subway", year:1863}
+// Historical vocabulary guard, informed by the approach in https://ht.ac.uk/guide/.
+// "Familiar by" is an approximate year when the *modern sense or reference*
+// would be recognizable, not the first appearance of the spelling.
+// The Historical Thesaurus dates WORD SENSES, not conversational frequency.
+// Its database is copyright-protected and is not reproduced or scraped here.
+// This small hand-curated list is intentionally conservative. It cannot
+// validate every word or judge whether a creative metaphor is historically apt.
+const HISTORICAL_TERMS = [
+  // Transport, entertainment and communication.
+  {label:"steam engine", familiarBy:1750, forms:["steam engine","steam engines"]},
+  {label:"train", familiarBy:1830, forms:["train","trains","railway","railroads","railroad"]},
+  {label:"photograph", familiarBy:1850, forms:["photograph","photographs","photography","photographic"]},
+  {label:"telegraph", familiarBy:1850, forms:["telegraph","telegraphs"]},
+  {label:"subway", familiarBy:1870, forms:["subway","subways","underground railway"]},
+  {label:"telephone", familiarBy:1890, forms:["telephone","telephones"]},
+  {label:"electric light", familiarBy:1890, forms:["electric light","electric lights","light bulb","lightbulb"]},
+  {label:"gramophone", familiarBy:1900, forms:["gramophone","gramophones","phonograph","phonographs"]},
+  {label:"automobile", familiarBy:1900, forms:["automobile","automobiles","motorcar","motorcars"]},
+  {label:"cinema", familiarBy:1900, forms:["cinema","movie","movies","motion picture","motion pictures"]},
+  {label:"airplane", familiarBy:1910, forms:["airplane","airplanes","aeroplane","aeroplanes"]},
+  {label:"radio", familiarBy:1920, forms:["radio","radios","radio broadcast","radio broadcasts"]},
+  {label:"robot", familiarBy:1930, forms:["robot","robots"]},
+  {label:"television", familiarBy:1950, forms:["television","tv","tvs","televisions"]},
+  {label:"electronic computer", familiarBy:1950, forms:["computer","computers","electronic computer","electronic computers"]},
+  {label:"computer program", familiarBy:1960, forms:["computer program","computer programs","programming language","programming languages"]},
+  {label:"video", familiarBy:1970, forms:["video","videos","videotape","videotapes"]},
+  {label:"artificial intelligence", familiarBy:1960, forms:["artificial intelligence"]},
+  {label:"touchscreen", familiarBy:1980, forms:["touchscreen","touchscreens","touch screen","touch screens"]},
+  {label:"email", familiarBy:1990, forms:["email","e-mail","emails","electronic mail"]},
+  {label:"mobile phone", familiarBy:1990, forms:["mobile phone","mobile phones","cell phone","cell phones","cellphone","cellphones"]},
+  {label:"internet", familiarBy:1995, forms:["internet","world wide web"]},
+  {label:"website", familiarBy:1995, forms:["website","websites","web site","web sites","webpage","webpages"]},
+  {label:"QR code", familiarBy:2000, forms:["qr code","qr codes"]},
+  {label:"Wi-Fi", familiarBy:2000, forms:["wi-fi","wifi","wireless internet"]},
+  {label:"Bluetooth", familiarBy:2000, forms:["bluetooth"]},
+  {label:"search engine", familiarBy:2000, forms:["search engine","search engines"]},
+  {label:"social media", familiarBy:2005, forms:["social media","social network","social networking"]},
+  {label:"streaming music", familiarBy:2005, forms:["streaming","streamed","stream music","streaming music"]},
+  {label:"podcast", familiarBy:2005, forms:["podcast","podcasts"]},
+  {label:"smartphone", familiarBy:2010, forms:["smartphone","smartphones","smart phone","smart phones"]},
+  {label:"app", familiarBy:2010, forms:["app","apps","mobile app","mobile apps"]},
+  {label:"iPhone", familiarBy:2010, forms:["iphone","iphones"]},
+  {label:"iPad", familiarBy:2010, forms:["ipad","ipads"]},
+  {label:"ChatGPT", familiarBy:2023, forms:["chatgpt"]},
+  {label:"TikTok", familiarBy:2020, forms:["tiktok"]}
 ];
+
+// Match complete words and phrases so "app" won't flag "apple".
+// Avoid flagging an older word just because a newer sense exists where
+// its original meaning could still reasonably be understood.
+function historicalFlags(text, era) {
+  return HISTORICAL_TERMS
+    .filter(entry => era.year < entry.familiarBy &&
+      entry.forms.some(form => hasWholeTerm(text, form)))
+    .map(entry => entry.label);
+}
 
 // Display original full-resolution photos in equal-size frames without cropping.
 const IMAGE_PATHS = {
@@ -363,23 +408,22 @@ function grade(){
     concept.words.some(word=>hasTerm(text,word))
   ).length;
   const words=(text.match(/\b[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)?\b/gu)||[]).length;
-  const hasAnachronism=FUTURE_WORDS.some(word=>
-    word.year>activeEra.year&&hasWholeTerm(text,word.word)
-  );
-  // Offline score: 1 starting point, 2 for each of 3 key ideas,
-  // 1 for at least 12 words, 1 for at least 28 words,
-  // and 1 for complete, era-appropriate vocabulary.
-  // The maximum possible is 10; only 8+ unlocks the next round.
-  const score=Math.min(10,
-    1+matched*2+(words>=12?1:0)+(words>=28?1:0)+
-    (matched===3&&!hasAnachronism?1:0)
-  );
+  const flags=historicalFlags(text,activeEra);
+  // 1 point to start; +2 per concept (up to 6); +1 for 12+ words;
+  // +1 for 28+ words; +1 when all 3 concepts are covered.
+  // If modern terms are found, the maximum is 7 until corrected.
+  const rawScore=Math.min(10,1+matched*2+
+    (words>=12?1:0)+(words>=28?1:0)+(matched===3?1:0));
+  const score=flags.length?Math.min(7,rawScore):rawScore;
   const message=score<=5?"explanation sucks. try again":
     score<=7?"mid. try again":
     score===8?"not bad":"excellent";
   feedbackEl.replaceChildren();
   feedbackEl.appendChild(node("p",score+"/10","score"));
   feedbackEl.appendChild(node("p",message,"verdict"));
+  if(flags.length){
+    feedbackEl.appendChild(node("p","too modern: "+flags.join(", "),"historical-flag"));
+  }
   feedbackEl.hidden=false;
   $("next").disabled=score<8;
 }
