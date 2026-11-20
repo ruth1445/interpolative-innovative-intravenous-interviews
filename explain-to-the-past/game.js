@@ -431,9 +431,6 @@ function grade(){
   feedbackEl.replaceChildren();
   feedbackEl.appendChild(node("p",score+"/10","score"));
   feedbackEl.appendChild(node("p",message,"verdict"));
-  if(flags.length){
-    feedbackEl.appendChild(node("p","too modern: "+flags.join(", "),"historical-flag"));
-  }
   feedbackEl.hidden=false;
   $("next").disabled=score<8;
 }
