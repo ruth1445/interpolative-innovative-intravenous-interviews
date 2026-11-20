@@ -21,7 +21,7 @@
 
 <main id="app"><div style="font:18px Georgia,serif;padding:3rem;max-width:38rem;margin:auto">Opening interviews…</div></main>
 <script type="module">
-  import('/js/app.js?v=20261120readable').catch(err => {
+  import('/js/app.js?v=20261120publish3').catch(err => {
     console.error('Interview site failed to load:', err);
     const host=document.getElementById('app');
     if(host) host.innerHTML='<div style="font:18px Georgia,serif;padding:3rem;max-width:38rem;margin:auto"><h1 style="font:24px Georgia,serif;margin-bottom:1rem">The interviews could not load</h1><p style="margin-bottom:1rem">Please reload this page. If the problem continues, the error below can help identify it:</p><pre id="site-error" style="white-space:pre-wrap;overflow-wrap:anywhere;font:13px monospace"></pre><p><a href="/">Back to homepage</a></p></div>';
