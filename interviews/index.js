@@ -9,6 +9,7 @@ import samirDorothy from './samir-dorothy.js?v=20260927b';
 import anitaWong from './anita-wong.js?v=20260927b';
 import siddharth from './siddharth.js?v=20260927b';
 import jerryBartolino from './jerry-bartolino.js?v=20261004d';
+import shaktiMb from './shakti-mb.js?v=20261120a';
 
 /* Order still controls where named flowers sit in the bouquet. */
 export const PEOPLE = [
@@ -22,5 +23,6 @@ export const PEOPLE = [
   samirDorothy,
   anitaWong,
   siddharth,
-  jerryBartolino
+  jerryBartolino,
+  shaktiMb
 ];
