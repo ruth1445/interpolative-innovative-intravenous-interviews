@@ -248,11 +248,13 @@ const HISTORICAL_TERMS = [
   {label:"radio", familiarBy:1920, forms:["radio","radios","radio broadcast","radio broadcasts"]},
   {label:"robot", familiarBy:1930, forms:["robot","robots"]},
   {label:"television", familiarBy:1950, forms:["television","tv","tvs","televisions"]},
-  {label:"electronic computer", familiarBy:1950, forms:["computer","computers","electronic computer","electronic computers"]},
+  {label:"computer", familiarBy:1950, forms:["computer","computers","electronic computer","electronic computers"], pastMeaning:"someone who performed calculations", pastMeaningFrom:1613},
   {label:"computer program", familiarBy:1960, forms:["computer program","computer programs","programming language","programming languages"]},
   {label:"video", familiarBy:1970, forms:["video","videos","videotape","videotapes"]},
   {label:"artificial intelligence", familiarBy:1960, forms:["artificial intelligence"]},
   {label:"touchscreen", familiarBy:1980, forms:["touchscreen","touchscreens","touch screen","touch screens"]},
+  {label:"tablet", familiarBy:2005, forms:["tablet","tablets"], modernOnlyWith:["screen","electronic","digital","touch","computer","tap","swipe"], pastMeaning:"a small slab, often used for writing"},
+  {label:"mouse", familiarBy:1980, forms:["mouse","mice"], modernOnlyWith:["cursor","click","clicking","pointer","screen","computer","keyboard"], pastMeaning:"a small rodent"},
   {label:"email", familiarBy:1990, forms:["email","e-mail","emails","electronic mail"]},
   {label:"mobile phone", familiarBy:1990, forms:["mobile phone","mobile phones","cell phone","cell phones","cellphone","cellphones"]},
   {label:"internet", familiarBy:1995, forms:["internet","world wide web"]},
@@ -262,7 +264,7 @@ const HISTORICAL_TERMS = [
   {label:"Bluetooth", familiarBy:2000, forms:["bluetooth"]},
   {label:"search engine", familiarBy:2000, forms:["search engine","search engines"]},
   {label:"social media", familiarBy:2005, forms:["social media","social network","social networking"]},
-  {label:"streaming music", familiarBy:2005, forms:["streaming","streamed","stream music","streaming music"]},
+  {label:"streaming", familiarBy:2005, forms:["streaming","streamed","stream music","streaming music"], modernOnlyWith:["music","song","songs","video","film","movie","album","online","internet","service","radio"], pastMeaning:"flowing or moving in a continuous current"},
   {label:"podcast", familiarBy:2005, forms:["podcast","podcasts"]},
   {label:"smartphone", familiarBy:2010, forms:["smartphone","smartphones","smart phone","smart phones"]},
   {label:"app", familiarBy:2010, forms:["app","apps","mobile app","mobile apps"]},
@@ -282,14 +284,55 @@ const HISTORICAL_TERMS = [
   {label:"TikTok", familiarBy:2020, forms:["tiktok"]}
 ];
 
-// Match complete words and phrases so "app" won't flag "apple".
-// Avoid flagging an older word just because a newer sense exists where
-// its original meaning could still reasonably be understood.
+// Match whole terms and explain just the first relevant historical issue.
+// For older words with multiple meanings, require digital context before
+// assuming the player intended the newer technological sense.
 function historicalFlags(text, era) {
-  return HISTORICAL_TERMS
-    .filter(entry => era.year < entry.familiarBy &&
-      entry.forms.some(form => hasWholeTerm(text, form)))
-    .map(entry => entry.label);
+  const found=[];
+  for(const entry of HISTORICAL_TERMS){
+    if(era.year >= entry.familiarBy)continue;
+    const matched=entry.forms.find(form=>hasWholeTerm(text,form));
+    if(!matched)continue;
+    if(entry.modernOnlyWith && !entry.modernOnlyWith.some(word=>hasWholeTerm(text,word)))continue;
+    const offset=text.toLowerCase().indexOf(matched.toLowerCase());
+    found.push({entry,offset:offset<0?Number.MAX_SAFE_INTEGER:offset});
+  }
+  return found.sort((a,b)=>a.offset-b.offset).map(item=>item.entry);
+}
+function historicalNote(entry,era){
+  const when=era.label.toLowerCase();
+  // A computer was a person who calculated in early modern English.
+  // Before the first documented "computer" sense, don't assert that
+  // the word already had that meaning.
+  if(entry.pastMeaning && era.year >= (entry.pastMeaningFrom||0)){
+    return '"' + entry.label + '" meant ' + entry.pastMeaning + ' in the ' + when + '.';
+  }
+  const articles={
+    "internet":"the internet",
+    "radio":"the radio",
+    "television":"television",
+    "computer":"an electronic computer",
+    "train":"a train",
+    "photograph":"a photograph",
+    "airplane":"an airplane",
+    "movie theatre":"a movie theatre",
+    "subway":"a subway",
+    "email":"email",
+    "MTA":"the MTA",
+    "Wi-Fi":"Wi-Fi",
+    "QR code":"a QR code",
+    "CAPTCHA":"a CAPTCHA",
+    "iPad":"an iPad",
+    "iPhone":"an iPhone",
+    "artificial intelligence":"artificial intelligence",
+    "streaming":"streaming media",
+    "touchscreen":"a touchscreen",
+    "tablet":"a touchscreen tablet",
+    "mouse":"a computer mouse",
+    "modern plastic bottle":"a modern plastic bottle"
+  };
+  const phrase=articles[entry.label]||entry.label;
+  return "People in the " + when + " wouldn't know what " + phrase + " is.";
 }
 
 // Display original full-resolution photos in equal-size frames without cropping.
@@ -430,7 +473,8 @@ function grade(){
     score===8?"not bad":"excellent";
   feedbackEl.replaceChildren();
   feedbackEl.appendChild(node("p",score+"/10","score"));
-  feedbackEl.appendChild(node("p",message,"verdict"));
+  const note=flags.length?historicalNote(flags[0],activeEra):"";
+  feedbackEl.appendChild(node("p",message+(note?" — "+note:""),"verdict"));
   feedbackEl.hidden=false;
   $("next").disabled=score<8;
 }
