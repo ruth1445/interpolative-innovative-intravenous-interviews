@@ -6,34 +6,28 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-(function(){
-  var BUILD='20261120shakti-repair';
-  window.__SITE_BUILD__=BUILD;
-  var u=new URL(window.location.href);
-  if(u.searchParams.get('build')!==BUILD){
-    u.searchParams.set('build',BUILD);
-    window.location.replace(u.href);
-  } else {
-    u.searchParams.delete('build');
-    window.history.replaceState(null,'',u.pathname + (u.search ? u.search : '') + u.hash);
-  }
-})();
-</script>
+<script>window.__SITE_BUILD__='20261120recovery';</script>
 <title>lessons</title>
 <link rel="icon" type="image/jpeg" href="pictures/favicon.jpg?v=3">
 <link rel="shortcut icon" href="pictures/favicon.jpg?v=3">
 <link rel="apple-touch-icon" href="pictures/favicon.jpg?v=3">
 
 <link rel="stylesheet" href="css/fonts.css?v=20260927b">
-<link rel="stylesheet" href="css/site.css?v=20261120shakti-repair">
+<link rel="stylesheet" href="css/site.css?v=20261120recovery">
 <!-- deploy: jerry-bartolino-20261004b -->
 </head>
 <body>
 
-<main id="app"></main>
-
-<script type="module">import('./js/app.js?v=20261120shakti-repair');</script>
+<main id="app"><div style="font:18px Georgia,serif;padding:3rem;max-width:38rem;margin:auto">Opening interviews…</div></main>
+<script type="module">
+  import('/js/app.js?v=20261120recovery').catch(err => {
+    console.error('Interview site failed to load:', err);
+    const host=document.getElementById('app');
+    if(host) host.innerHTML='<div style="font:18px Georgia,serif;padding:3rem;max-width:38rem;margin:auto"><h1 style="font:24px Georgia,serif;margin-bottom:1rem">The interviews could not load</h1><p style="margin-bottom:1rem">Please reload this page. If the problem continues, the error below can help identify it:</p><pre id="site-error" style="white-space:pre-wrap;overflow-wrap:anywhere;font:13px monospace"></pre><p><a href="/">Back to homepage</a></p></div>';
+    const error=document.getElementById('site-error');
+    if(error) error.textContent=String(err && (err.stack || err.message) || err);
+  });
+</script>
 <script>
 (function(){
   function ensureJerry(){
