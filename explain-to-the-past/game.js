@@ -224,7 +224,7 @@ const ITEMS = [
     }
   },
   {
-    id:"noise-cancelling-headphones", name:"noise-cancelling headphones", lead:"what", knownSince:2000,
+    id:"noise-cancelling-headphones", name:"noise-cancelling headphones", lead:"what a pair of", knownSince:2000,
     concepts:[
       {label:"worn over or in the ears", words:["ear","ears","head","headphone","headphones","wear","worn","cup","earpiece"]},
       {label:"reduces surrounding noise", words:["noise","sound","quiet","silence","cancel","block","reduce","drown","hush","background"]},
