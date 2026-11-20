@@ -441,4 +441,9 @@ eraEl.addEventListener("change",()=>setEra(eraEl.value));
 $("startGame").addEventListener("click",startGame);
 $("next").addEventListener("click",nextRound);
 checkEl.addEventListener("click",grade);
+answerEl.addEventListener("input",()=>{
+  // Any edited response needs fresh evaluation to unlock the next round.
+  feedbackEl.hidden=true;
+  $("next").disabled=true;
+});
 refreshEras();
