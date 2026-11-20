@@ -1489,3 +1489,47 @@ body.lightbox-open{overflow:hidden}
   transform:scale(1.18);background:var(--press-red);
 }
 .hand-page .game-launch__caption{opacity:.7;}
+
+
+/* Shakti: the same fine, black-outlined quotation treatment as Adhiv. */
+.press.shakti-press .cols p.adhiv-quote{
+  position:relative;
+  display:block;
+  width:90%;
+  max-width:none !important;
+  box-sizing:border-box;
+  overflow:hidden;
+  margin:1.15em auto 1.25em !important;
+  padding:1.05em 1.15em 1.08em 1.2em;
+  border:1px solid rgba(18,17,12,.85);
+  background:transparent;
+  color:#241F19;
+  font-family:var(--press);
+  font-size:clamp(13px,1.08vw,15.6px);
+  font-style:normal;
+  font-weight:400;
+  line-height:1.58;
+  letter-spacing:0;
+  text-transform:none;
+  text-align:left;
+  hyphens:auto;
+  text-wrap:pretty;
+  break-inside:avoid;
+}
+.press.shakti-press .cols p.adhiv-quote::before,
+.press.shakti-press .cols p.adhiv-quote::after{ content:none; }
+.press.shakti-press .cols p.adhiv-quote em{
+  color:inherit;
+  font:inherit;
+  font-style:normal;
+  font-weight:inherit;
+}
+@media(max-width:900px){
+  .press.shakti-press .cols p.adhiv-quote{
+    width:92%;
+    margin:1.05em auto 1.15em !important;
+    padding:1em 1em 1.03em 1.08em;
+    font-size:15.5px;
+    line-height:1.58;
+  }
+}
