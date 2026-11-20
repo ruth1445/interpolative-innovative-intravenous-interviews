@@ -268,6 +268,16 @@ const HISTORICAL_TERMS = [
   {label:"app", familiarBy:2010, forms:["app","apps","mobile app","mobile apps"]},
   {label:"iPhone", familiarBy:2010, forms:["iphone","iphones"]},
   {label:"iPad", familiarBy:2010, forms:["ipad","ipads"]},
+  {label:"meme", familiarBy:2000, forms:["meme","memes","internet meme"]},
+  {label:"CAPTCHA", familiarBy:2000, forms:["captcha","recaptcha"]},
+  {label:"Jira", familiarBy:2005, forms:["jira"]},
+  {label:"Spotify", familiarBy:2010, forms:["spotify"]},
+  {label:"Google", familiarBy:2000, forms:["google search","google maps","googling"]},
+  {label:"YouTube", familiarBy:2007, forms:["youtube"]},
+  {label:"Instagram", familiarBy:2012, forms:["instagram"]},
+  {label:"MetroCard", familiarBy:1995, forms:["metrocard","metrocards"]},
+  {label:"MTA", familiarBy:1970, forms:["mta"]},
+  {label:"modern plastic bottle", familiarBy:1950, forms:["plastic bottle","plastic bottles"]},
   {label:"ChatGPT", familiarBy:2023, forms:["chatgpt"]},
   {label:"TikTok", familiarBy:2020, forms:["tiktok"]}
 ];
