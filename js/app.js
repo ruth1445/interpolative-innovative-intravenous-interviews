@@ -1,4 +1,4 @@
-import { PEOPLE } from '../interviews/index.js?v=20261024r';
+import { PEOPLE } from '../interviews/index.js?v=20261120shakti';
 import { createInterviewController } from './editor.js?v=20261024r';
 
 /* ==================================================================
