@@ -500,7 +500,8 @@ function grade(){
   feedbackEl.replaceChildren();
   feedbackEl.appendChild(node("p",score+"/10","score"));
   const note=flags.length?historicalNote(flags[0],activeEra):"";
-  feedbackEl.appendChild(node("p",message+(note?" — "+note:""),"verdict"));
+  feedbackEl.appendChild(node("p",message,"verdict"));
+  if(note) feedbackEl.appendChild(node("p",note,"verdict historical-note"));
   feedbackEl.hidden=false;
   $("next").disabled=score<8;
 }
