@@ -82,13 +82,30 @@ example, soccer balls and football games already existed long before
 1970; the 1970 date refers only to the pictured black-and-white panel
 design.
 
-## Offline evaluation
+## Offline evaluation and vocabulary checks
 
-`ITEMS[].concepts` contains the three concept cues used for each item.
-The browser checks for relevant words, flags a few potential time-travel
-anachronisms, and displays a sample explanation suited to the selected
-listener. Word matching is not reliable semantic grading: synonym choice,
-creative analogies, irony, and negation can defeat the checker.
+The game uses an offline 1–10 score for each explanation. Three concept
+checklists reward coverage; modest word-count points reward elaboration.
+The next round only unlocks at 8/10. An answer containing a recognised
+anachronistic expression is capped at 7/10 until revised.
+
+`HISTORICAL_TERMS` contains a small conservative set of historical
+vocabulary/reference checks. Each `familiarBy` year is an approximate
+*period of general familiarity of the modern sense*, not the precise
+date a spelling first appeared. For example, **computer** also described
+a human calculator long before electronic computers existed.
+
+We consulted the approach described in the University of Glasgow's
+[Historical Thesaurus of English](https://ht.ac.uk/guide/). It dates
+particular **word senses** and their recorded usage, but does not by
+itself measure how prominent a word was in everyday conversation.
+The dataset is copyright-protected and not openly redistributable, so
+the game does not contain, download, or query the Historical Thesaurus
+database. This is **not** comprehensive word-level historical validation.
+
+The feedback deliberately shows only the score, the requested verdict,
+and, where applicable, a short list of potentially too-modern terms.
+No example answers are shown in the game UI.
 
 ## Ideas for later prompts
 
