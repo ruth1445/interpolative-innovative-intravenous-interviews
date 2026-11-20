@@ -60,6 +60,16 @@ export function createInterviewController({ app, byslug, esc, viewIndex }) {
   }
   function load(p){
     try{
+      /* Shakti's published entry changed after earlier browser-saved drafts.
+         Refresh stale local copies once, without touching any other interview. */
+      if(p.slug === 'shakti-mb'){
+        const revisionKey = 'bouquet:shakti-mb:published-revision';
+        const publishedRevision = '20261120-json-stack-quote-italics-v3';
+        if(localStorage.getItem(revisionKey) !== publishedRevision){
+          localStorage.removeItem(keyFor(p));
+          localStorage.setItem(revisionKey, publishedRevision);
+        }
+      }
       const raw = localStorage.getItem(keyFor(p));
       if(raw){
         const saved = JSON.parse(raw);
