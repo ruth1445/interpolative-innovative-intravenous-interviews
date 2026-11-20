@@ -207,6 +207,63 @@ const ITEMS = [
     }
   },
   {
+    id:"dating-profile", name:"dating profile", lead:"what a", knownSince:2012,
+    concepts:[
+      {label:"a brief personal introduction with photos", words:["profile","portrait","photo","picture","name","description","bio","introduc","self"]},
+      {label:"intended to find a romantic partner", words:["date","dating","romance","romantic","love","partner","relationship","suitor","court","marry","marriage"]},
+      {label:"people browse and mutually choose whom to contact", words:["choose","select","match","mutual","swipe","like","interest","browse","message","contact","connect","screen","app"]}
+    ],
+    samples:{
+      old:"Imagine a public book of short introductions by people seeking courtship. Each entry contains a portrait and a few words about the person; others look through the book and, when interest is mutual, the two can begin exchanging messages.",
+      early:"Think of a classified personal advertisement with a photograph and description, collected in a huge catalogue. People can look through these introductions and signal interest to begin a conversation.",
+      "50s":"Like the lonely-hearts column in a newspaper, but each entry has a photograph and short biography. People choose whom they would like to meet, and a reply starts a conversation.",
+      "60s":"Imagine thousands of personal advertisements with portraits, sorted into a catalogue. You look through them to find someone you might date, and the other person can respond if interested.",
+      "70s":"It is a personal dating advertisement with photos and a short description, displayed in a large electronic catalogue. People browse it and indicate mutual interest.",
+      "80s":"Picture a computer-based dating service: people write a short biography, add photographs, and look through other people's entries. When two people are interested, they can send messages.",
+      "90s":"Think of an online dating listing with a photograph and personal details, but built for a phone screen where people quickly choose whom they would like to meet."
+    }
+  },
+  {
+    id:"noise-cancelling-headphones", name:"noise-cancelling headphones", lead:"what", knownSince:2000,
+    concepts:[
+      {label:"worn over or in the ears", words:["ear","ears","head","headphone","headphones","wear","worn","cup","earpiece"]},
+      {label:"reduces surrounding noise", words:["noise","sound","quiet","silence","cancel","block","reduce","drown","hush","background"]},
+      {label:"uses a counteracting sound wave", words:["opposite","counter","reverse","wave","vibrat","microphone","signal","interference","measure","electronic","cancel"]}
+    ],
+    samples:{
+      old:"Imagine two soft cups worn over the ears to make the world quieter. A small mechanism hears the unwanted rumble and produces an opposing vibration, so much of that rumble fades before you hear it.",
+      early:"These are earphones fitted with a device that detects nearby noise and produces opposing sound waves. The two sounds partly cancel, leaving the listener in greater quiet.",
+      "50s":"Imagine a pair of earphones with microphones listening to the surrounding noise. Electronics generate a matching sound wave in reverse, making a steady engine hum much quieter.",
+      "60s":"They are headphones that measure background sound and play an opposing signal into the ear, cancelling much of the steady noise.",
+      "70s":"Think of headphones with a small microphone and electronic circuit. It picks up outside noise and makes an opposing sound wave that reduces what you hear.",
+      "80s":"These headphones use microphones and electronic processing to produce sound out of phase with surrounding noise, cancelling much of an aircraft or engine's low rumble.",
+      "90s":"Like specialised aviation noise-cancelling headsets, but made for everyday listening. Small microphones detect noise and electronics produce an opposing sound wave."
+    }
+  },
+  {
+    id:"suffrage-movement", name:"women's suffrage movement", lead:"what the", knownSince:1867,
+    concepts:[
+      {label:"women demanding political participation", words:["women","woman","female","ladies","girls"]},
+      {label:"campaign for the right to vote", words:["vote","voting","ballot","elect","suffrag","representation","choose leaders"]},
+      {label:"organised protests and petitions to change the law", words:["movement","march","protest","petition","campaign","organis","organiz","rally","rights","laws","government","parliament"]}
+    ],
+    samples:{
+      old:"It is an organised campaign by women who demand the right to choose their nation's lawmakers, a privilege often reserved for men. They gather signatures, petition those in power, speak publicly and march so that the law will recognise their votes."
+    }
+  },
+  {
+    id:"vinyl-record", name:"vinyl record", lead:"what a", knownSince:1948,
+    concepts:[
+      {label:"a flat round disc marked with grooves", words:["disc","disk","round","circle","flat","black","groove","spiral","record","plate"]},
+      {label:"spins as a needle traces its surface", words:["spin","turn","rotat","needle","stylus","track","player","turntable","revolv"]},
+      {label:"stores recorded music or voices as sound", words:["music","song","voice","sound","sing","instrument","recording","vibrat","hear","play"]}
+    ],
+    samples:{
+      old:"Imagine a flat round plate with a very fine spiral line carved into its surface. As the plate turns, a delicate needle follows that line and makes a machine reproduce the music or voice that was captured in it.",
+      early:"It works rather like a gramophone record, but is made from a different, flexible material with finer grooves. A needle follows the spinning grooves to reproduce recorded music, often for much longer on each side."
+    }
+  },
+  {
     id:"captcha", name:"CAPTCHA", lead:"what a", knownSince:2000,
     concepts:[
       {label:"a test to distinguish people from automated programs", words:["human","person","robot","bot","real","test","prove","verify","verification"]},
@@ -281,7 +338,10 @@ const HISTORICAL_TERMS = [
   {label:"MTA", familiarBy:1970, forms:["mta"]},
   {label:"modern plastic bottle", familiarBy:1950, forms:["plastic bottle","plastic bottles"]},
   {label:"ChatGPT", familiarBy:2023, forms:["chatgpt"]},
-  {label:"TikTok", familiarBy:2020, forms:["tiktok"]}
+  {label:"TikTok", familiarBy:2020, forms:["tiktok"]},
+  {label:"dating app", familiarBy:2012, forms:["dating app","dating apps","dating profile","dating profiles"]},
+  {label:"noise-cancelling headphones", familiarBy:2000, forms:["noise-cancelling headphones","noise canceling headphones","noise cancelling headphones"]},
+  {label:"vinyl record", familiarBy:1950, forms:["vinyl record","vinyl records"]}
 ];
 
 // Match whole terms and explain just the first relevant historical issue.
@@ -355,7 +415,10 @@ function historicalNote(entry,era){
     "MTA":"the MTA",
     "modern plastic bottle":"a plastic bottle",
     "ChatGPT":"ChatGPT",
-    "TikTok":"TikTok"
+    "TikTok":"TikTok",
+    "dating app":"a dating app",
+    "noise-cancelling headphones":"noise-cancelling headphones",
+    "vinyl record":"a vinyl record"
   };
   const phrase=articles[entry.label]||entry.label;
   return "People in the " + when + " wouldn't know what " + phrase + " is.";
@@ -376,7 +439,11 @@ const IMAGE_PATHS = {
   "cinema":"../pictures/ theatre.jpg",
   "football":"../pictures/Soccer.jpg",
   "qr-code":"../pictures/QR.jpg",
-  "captcha":"../CAPTCHA.jpg"
+  "captcha":"../CAPTCHA.jpg",
+  "dating-profile":"../pictures/dating_app.jpg",
+  "noise-cancelling-headphones":"../pictures/headphones.jpg",
+  "suffrage-movement":"../pictures/suffrage.jpg",
+  "vinyl-record":"../pictures/vinyl.jpg"
 };
 function renderImage(item){
   const image=document.getElementById("itemImage");
