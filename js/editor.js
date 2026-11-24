@@ -64,7 +64,7 @@ export function createInterviewController({ app, byslug, esc, viewIndex }) {
          Refresh stale local copies once, without touching any other interview. */
       if(p.slug === 'shakti-mb'){
         const revisionKey = 'bouquet:shakti-mb:published-revision';
-        const publishedRevision = '20261120-json-stack-quote-italics-v3';
+        const publishedRevision = '20261124-tarkovsky-selected-quote-v4';
         if(localStorage.getItem(revisionKey) !== publishedRevision){
           localStorage.removeItem(keyFor(p));
           localStorage.setItem(revisionKey, publishedRevision);
